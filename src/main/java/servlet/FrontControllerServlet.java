@@ -16,9 +16,9 @@ public class FrontControllerServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);
-        // TODO Split the request with the @RequestParserInterface
-        // TODO Call the right process to get the right data
-        // TODO Forward to the template to just modify the body of the page
+        // TODO Split the request with the @RequestParserInterface (/user, /event, /participant)
+        // TODO Call the right process (@EventController or @ParticipantController or @UserController
+        // TODO Forward to the template to change the body of the page
 
     }
 
