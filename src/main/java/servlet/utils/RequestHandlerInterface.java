@@ -5,7 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by adric on 07/10/2016.
  */
-public interface RequestParserInterface {
+public interface RequestHandlerInterface {
 
-    public void parseRequest(HttpServletRequest request);
+    ParsedRequest parseRequest(HttpServletRequest request);
+
+
 }

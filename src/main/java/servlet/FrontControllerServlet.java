@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Created by adric on 07/10/2016.
@@ -13,10 +14,12 @@ import java.io.IOException;
  */
 public class FrontControllerServlet extends HttpServlet{
 
-    @Override
+
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-        // TODO Split the request with the @RequestParserInterface (/user, /event, /participant)
+
+        resp.setContentType("text/html");
+
+        // TODO Split the request with the @RequestHandlerInterface (/user, /event, /participant)
         // TODO Call the right process (@EventController or @ParticipantController or @UserController
         // TODO Forward to the template to change the body of the page
 
