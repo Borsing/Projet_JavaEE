@@ -1,0 +1,34 @@
+@startuml
+
+class Participant {
+    String mail
+    String last_name
+    String first_name
+    String company
+}
+
+class Organizer {
+    String mail
+    String password
+    String last_name
+    String first_name
+    String company
+}
+
+class Event {
+    String id
+    String name
+    String description
+    Date begin_date
+    Date end_date
+    String address
+    String organizer_id
+}
+
+Participant - Event : joins >
+Organizer - Event : manages >
+
+Participant "0..*" -- "0..*" Event
+Organizer "1" -- "0..*" Event
+
+@enduml
