@@ -16,6 +16,6 @@
 
     <servlet-mapping>
         <servlet-name>FrontController</servlet-name>
-        <url-pattern>/app/*</url-pattern>
+        <url-pattern>/eventmanager/*</url-pattern>
     </servlet-mapping>
 </web-app>
