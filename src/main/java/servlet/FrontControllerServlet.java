@@ -31,14 +31,10 @@ public class FrontControllerServlet extends HttpServlet{
 
         RequestDispatcher rd ;
         ServletContext context;
-        // TODO Split the request with the @RequestRouter (/user, /event, /participant)
-
-        // TODO Call the right process (@EventService or @ParticipantService or @UserService
-        // TODO Forward to the template to change the body of the page
 
         context = getServletContext();
         router.handleRequest(req,resp, context);
-        rd = context.getRequestDispatcher("/layout/template.jsp"); // Do not forward to another jsp
+        rd = context.getRequestDispatcher("/layout/index.jsp"); // Do not forward to another jsp
         if(rd != null){
             rd.forward(req,resp);
         }

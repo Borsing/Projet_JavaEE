@@ -1,1 +1,116 @@
-<h1>Login</h1>
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--4-col"></div>
+    <div class="mdl-cell mdl-cell--4-col">
+
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+
+            <div class="mdl-tabs__tab-bar">
+                <a href="#connect" class="mdl-tabs__tab is-active">Se connecter</a>
+                <a href="#register" class="mdl-tabs__tab">S'enregister</a>
+                <a href="#events" class="mdl-tabs__tab">Les events</a>
+                <a href="#create-event" class="mdl-tabs__tab">Creer un event</a>
+            </div>
+
+            <div class="mdl-tabs__panel is-active" id="connect">
+                <form action="#">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="email" id="email">
+                        <label class="mdl-textfield__label" for="email">Adresse mail</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="password" id="password">
+                        <label class="mdl-textfield__label" for="password">Mot de passe</label>
+                    </div>
+                    <!-- Raised button with ripple -->
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                        se connecter
+                    </button>
+                </form>
+            </div>
+
+            <div class="mdl-tabs__panel" id="register">
+                <form action="#">
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" id="fname">
+                        <label class="mdl-textfield__label" for="fname">Prenom</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" id="lname">
+                        <label class="mdl-textfield__label" for="lname">Nom</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="email" id="email-register">
+                        <label class="mdl-textfield__label" for="email">Adresse mail</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" id="company">
+                        <label class="mdl-textfield__label" for="company">Societe</label>
+                    </div>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                        s'enregister
+                    </button>
+                </form>
+            </div>
+
+            <div class="mdl-tabs__panel" id="events">
+                <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+                    <i class="material-icons">search</i>
+                </label>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="sample6">
+                </div>
+                <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+                    <thead>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">Event</th>
+                        <th>Debut</th>
+                        <th>Fin</th>
+                        <th>Lieu</th>
+                        <th>Participants</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">Web 2 Day</td>
+                        <td>25/06/2016 : 10h30</td>
+                        <td>28/06/2016 : 22h00</td>
+                        <td>Roubaix</td>
+                        <td>2 700</td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">Vieilles charrues</td>
+                        <td>12/07/2016 : 10h30</td>
+                        <td>16/07/2016 : 15h00</td>
+                        <td>Carhaix</td>
+                        <td>385 000</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mdl-tabs__panel" id="create-event">
+                <form action="#">
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" id="event-name">
+                        <label class="mdl-textfield__label" for="event-name">Nom de l'event</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="event-place">
+                        <label class="mdl-textfield__label" for="event-place">Lieu</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="date" id="event-date-begin">
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="date" id="event-date-end">
+                    </div>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                        creer l'event
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="mdl-cell mdl-cell--4-col"></div>
+</div>
