@@ -1,15 +1,13 @@
 package servlet.utils;
 
 
-import modules.event.EventService;
-import modules.participant.ParticipantService;
-import modules.user.UserService;
+import modules.event.EventDAO;
+import modules.participant.ParticipantDAO;
+import modules.organizer.OrganizerDAO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.*;
 
 /**
@@ -25,16 +23,10 @@ public class RequestRouter {
         String[] urlFragments = pathInfo.split("/");
         Map parameters = req.getParameterMap();
 
-        UserService userService = new UserService();
-        EventService eventController = new EventService();
-        ParticipantService participantService = new ParticipantService();
+        OrganizerDAO userService = new OrganizerDAO();
+        EventDAO eventController = new EventDAO();
+        ParticipantDAO participantService = new ParticipantDAO();
 
-
-        try {
-            PrintWriter printWriter = resp.getWriter();
-            printWriter.println("Path info : " + pathInfo +"\n");
-            printWriter.println("Url Fragments : " + urlFragments[1] +"\n");
-            printWriter.println("Parameters : " + parameters.toString() +"\n");
 
             switch (req.getMethod()){
                 case "GET":
@@ -94,9 +86,6 @@ public class RequestRouter {
                                     break;
                             }
                     }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 
