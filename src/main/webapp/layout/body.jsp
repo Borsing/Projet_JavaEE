@@ -10,7 +10,7 @@
 <html>
 <c:choose>
     <c:when test="${page=='login'}">
-        <c:import url="../app/login.jspf"></c:import>
+        <c:import url="../app/login.jspf" />
     </c:when>
 
 </c:choose>
