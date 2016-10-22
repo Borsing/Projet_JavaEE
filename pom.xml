@@ -57,6 +57,10 @@
             <version>1.4.192</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>sax</groupId>
+            <artifactId>sax</artifactId>
+            <version>2.0.1</version>
+        </dependency>
     </dependencies>
 </project>

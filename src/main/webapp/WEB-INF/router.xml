@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes>
+    <route id="login-post" default-route = "true">
+        <method value="POST" />
+        <targeted-service value="OrganizerDAO" />
+        <parameters>
+            <parameter value="mail" />
+            <parameter value="password" />
+        </parameters>
+        <jsp value="login.jsp"/>
+        <redirected-jsp value="all-events" />
+    </route>
+    <route id="login-get">
+        <method value="GET" />
+        <url value="/login"/>
+        <jsp value="login"/>
+    </route>
+    <route id="404">
+        <method value="GET" />
+        <url value="/404"/>
+        <jsp value="404"/>
+    </route>
+</routes>
