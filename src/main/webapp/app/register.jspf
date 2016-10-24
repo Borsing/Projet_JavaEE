@@ -1,16 +1,25 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: adric
-  Date: 10/10/2016
-  Time: 17:01
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--4-col"></div>
+    <div class="mdl-cell mdl-cell--4-col">
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="fname">
+            <label class="mdl-textfield__label" for="fname">Prenom</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="lname">
+            <label class="mdl-textfield__label" for="lname">Nom</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="email" id="email-register">
+            <label class="mdl-textfield__label" for="email-register">Adresse mail</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="company">
+            <label class="mdl-textfield__label" for="company">Societe</label>
+        </div>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            s'enregister
+        </button>
+    </div>
+    <div class="mdl-cell mdl-cell--4-col"></div>
+</div>

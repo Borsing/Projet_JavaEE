@@ -38,7 +38,6 @@ public class FrontControllerServlet extends HttpServlet{
         if(rd != null){
             rd.forward(req,resp);
         }
-
     }
 
     @Override

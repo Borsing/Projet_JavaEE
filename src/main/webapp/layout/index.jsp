@@ -10,7 +10,6 @@
 
 <body>
     <jsp:include page="body.jsp"></jsp:include>
-
 </body>
 
 

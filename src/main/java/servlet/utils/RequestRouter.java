@@ -45,25 +45,13 @@ public class RequestRouter {
                                     context.setAttribute("page","login");
                                     break;
                                 case "register":
+                                    context.setAttribute("page","register");
+                                    break;
+                                case "events":
+                                    context.setAttribute("page","events");
                                     break;
                                 case "settings":
-                                    break;
-                            }
-                            break;
-                        case "events":
-                            switch (urlFragments[2]) {
-                                case "all":
-                                    break;
-                                case "create":
-                                    context.setAttribute("page","create-event");
-                                    break;
-                                case "sort":
-                                    break;
-                                case "myevents":
-                                    break;
-                                case "detail":
-                                    break;
-                                case "join":
+                                    context.setAttribute("page","settings");
                                     break;
                             }
                             break;
