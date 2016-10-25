@@ -11,7 +11,6 @@ import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by adric on 20/10/2016.
