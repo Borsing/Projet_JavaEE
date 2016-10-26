@@ -60,7 +60,7 @@ public class EventEntity extends AbstractEntity{
     public EventEntity() {
     }
 
-    public int getId() {
+    public Object getId() {
         return id;
     }
 

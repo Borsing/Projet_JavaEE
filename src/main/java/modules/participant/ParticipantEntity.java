@@ -79,6 +79,11 @@ public class ParticipantEntity extends AbstractEntity{
     public void setEvents(Collection<EventEntity> events) {
         this.events = events;
     }
+    
+	@Override
+	public Object getId() {
+		return this.getMail();
+	}
 
     @Override
     public String toString() {

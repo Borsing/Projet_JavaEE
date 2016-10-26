@@ -5,7 +5,6 @@ import modules.event.EventEntity;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by adric on 10/10/2016.
@@ -92,6 +91,11 @@ public class OrganizerEntity extends AbstractEntity {
     public void setEvents(Collection<EventEntity> events) {
         this.events = events;
     }
+    
+	@Override
+	public Object getId() {
+		return this.getMail();
+	}
 
     @Override
     public String toString() {
