@@ -1,18 +1,36 @@
-<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--4-col"></div>
-    <div class="mdl-cell mdl-cell--4-col">
-        <form action="/eventmanager/login">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="email" id="email" name="email">
-                <label class="mdl-textfield__label" for="email">Adresse mail</label>
-            </div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="password" id="password" name="password">
-                <label class="mdl-textfield__label" for="password">Mot de passe</label>
-            </div>
-            <!-- Raised button with ripple -->
-            <input value="se connecter" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"/>
-        </form>
-    </div>
-    <div class="mdl-cell mdl-cell--4-col"></div>
-</div>
+<!-- jspf showing how to login. -->
+
+<dialog class="mdl-dialog" id="modal-login">
+    <form>
+        <h5 class="mdl-dialog__title">Se connecter</h5>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="email" id="email" name="email">
+            <label class="mdl-textfield__label" for="email">Adresse mail</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="password" id="password" name="password">
+            <label class="mdl-textfield__label" for="password">Mot de passe</label>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button login-connect">se connecter</button>
+            <button type="button" class="mdl-button login-close">annuler</button>
+        </div>
+    </form>
+</dialog>
+
+<script>
+    var dialogLogin = document.querySelector('#modal-login');
+    var showDialogButtonLogin = document.querySelector('#show-dialog-login');
+    if (! dialogLogin.showModal) {
+        dialogPolyfill.registerDialog(dialogLogin);
+    }
+    showDialogButtonLogin.addEventListener('click', function() {
+        dialogLogin.showModal();
+    });
+    dialogLogin.querySelector('.login-close').addEventListener('click', function() {
+        dialogLogin.close();
+    });
+    dialogLogin.querySelector('.login-connect').addEventListener('click', function() {
+        dialogLogin.close();
+    });
+</script>

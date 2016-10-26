@@ -1,6 +1,8 @@
-<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--4-col"></div>
-    <div class="mdl-cell mdl-cell--4-col">
+<!-- jspf showing how to register. -->
+
+<dialog class="mdl-dialog" id="modal-register">
+    <form>
+        <h5 class="mdl-dialog__title">S'enregistrer</h5>
         <div class="mdl-textfield mdl-js-textfield">
             <input class="mdl-textfield__input" type="text" id="fname">
             <label class="mdl-textfield__label" for="fname">Prenom</label>
@@ -17,9 +19,26 @@
             <input class="mdl-textfield__input" type="text" id="company">
             <label class="mdl-textfield__label" for="company">Societe</label>
         </div>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-            s'enregister
-        </button>
-    </div>
-    <div class="mdl-cell mdl-cell--4-col"></div>
-</div>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button register-connect">se connecter</button>
+            <button type="button" class="mdl-button register-close">annuler</button>
+        </div>
+    </form>
+</dialog>
+
+<script>
+    var dialogRegister = document.querySelector('#modal-register');
+    var showDialogButtonRegister = document.querySelector('#show-dialog-register');
+    if (! dialogRegister.showModal) {
+        dialogPolyfill.registerDialog(dialogRegister);
+    }
+    showDialogButtonRegister.addEventListener('click', function() {
+        dialogRegister.showModal();
+    });
+    dialogRegister.querySelector('.register-close').addEventListener('click', function() {
+        dialogRegister.close();
+    });
+    dialogRegister.querySelector('.register-connect').addEventListener('click', function() {
+        dialogRegister.close();
+    });
+</script>

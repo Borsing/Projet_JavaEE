@@ -11,11 +11,6 @@
         <jsp value="login"/>
         <redirected-jsp value="all-events" />
     </route>
-    <route id="login-get">
-        <method value="GET" />
-        <url value="/login"/>
-        <jsp value="login"/>
-    </route>
     <route id="404">
         <method value="GET" />
         <url value="/404"/>
@@ -34,9 +29,9 @@
         <url value="/events"/>
         <jsp value="events"/>
     </route>
-    <route id="create-event">
+    <route id="my-events">
         <method value="GET" />
-        <url value="/create-event"/>
-        <jsp value="register"/>
+        <url value="/my-events"/>
+        <jsp value="my-events"/>
     </route>
 </routes>

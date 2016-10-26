@@ -1,1 +1,28 @@
-<h1>Create Event</h1>
+<!-- jspf showing how to create an event | Can only appear while connected. -->
+
+<dialog class="mdl-dialog" id="modal-create-event">
+    <form>
+        <h5 class="mdl-dialog__title">Creation d'event</h5>
+        <div class="mdl-dialog__actions">
+            <button type="button" class="mdl-button create-event-connect">creer l'event</button>
+            <button type="button" class="mdl-button create-event-close">annuler</button>
+        </div>
+    </form>
+</dialog>
+
+<script>
+    var dialogCreateEvent = document.querySelector('#modal-create-event');
+    var showDialogButtonCreateEvent = document.querySelector('#show-dialog-create-event');
+    if (! dialogCreateEvent.showModal) {
+        dialogPolyfill.registerDialog(dialogLogin);
+    }
+    showDialogButtonCreateEvent.addEventListener('click', function() {
+        dialogCreateEvent.showModal();
+    });
+    dialogCreateEvent.querySelector('.create-event-close').addEventListener('click', function() {
+        dialogCreateEvent.close();
+    });
+    dialogCreateEvent.querySelector('.create-event-connect').addEventListener('click', function() {
+        dialogCreateEvent.close();
+    });
+</script>
