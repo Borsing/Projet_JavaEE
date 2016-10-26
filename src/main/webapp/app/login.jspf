@@ -1,19 +1,17 @@
 <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--4-col"></div>
     <div class="mdl-cell mdl-cell--4-col">
-        <form action="#">
+        <form action="/eventmanager/login">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="email" id="email">
+                <input class="mdl-textfield__input" type="email" id="email" name="email">
                 <label class="mdl-textfield__label" for="email">Adresse mail</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="password" id="password">
+                <input class="mdl-textfield__input" type="password" id="password" name="password">
                 <label class="mdl-textfield__label" for="password">Mot de passe</label>
             </div>
             <!-- Raised button with ripple -->
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-                se connecter
-            </button>
+            <input value="se connecter" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"/>
         </form>
     </div>
     <div class="mdl-cell mdl-cell--4-col"></div>
