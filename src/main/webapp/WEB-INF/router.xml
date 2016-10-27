@@ -8,17 +8,30 @@
             <parameter value="mail" />
             <parameter value="password" />
         </parameters>
-        <jsp value="login.jsp"/>
-        <redirected-jsp value="all-events" />
-    </route>
-    <route id="login-get">
-        <method value="GET" />
-        <url value="/login"/>
         <jsp value="login"/>
+        <redirected-jsp value="all-events" />
     </route>
     <route id="404">
         <method value="GET" />
         <url value="/404"/>
         <jsp value="404"/>
+    </route>
+    <route id="all-events">
+        <method value="GET" />
+        <url value="/events"/>
+        <jsp value="events"/>
+    </route>
+    <route id="all-events">
+        <method value="POST" />
+        <parameters>
+            <parameter value="search"/>
+        </parameters>
+        <url value="/events"/>
+        <jsp value="events"/>
+    </route>
+    <route id="my-events">
+        <method value="GET" />
+        <url value="/my-events"/>
+        <jsp value="my-events"/>
     </route>
 </routes>
