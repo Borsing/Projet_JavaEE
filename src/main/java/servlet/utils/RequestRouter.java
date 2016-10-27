@@ -1,27 +1,18 @@
 package servlet.utils;
 
 
-import modules.event.EventDAO;
-import modules.participant.ParticipantDAO;
-import modules.organizer.OrganizerDAO;
-import org.w3c.dom.*;
-import org.xml.sax.SAXException;
 import routeParser.RouteXML;
-import routeParser.handler.SAXDocumentHandler;
 import routeParser.om.Route;
+import modules.security.SecurityService;
 
-import javax.print.URIException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.*;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URISyntaxException;
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by adric on 07/10/2016.
@@ -60,9 +51,15 @@ public class RequestRouter {
 
         try {
             route = getRouteOfURL(req.getPathInfo(),req.getParameterMap(),req.getMethod());
-            // TODO Call the Database Manager if needed and redirect the right page passing the database Response
-            System.out.println(route.toString());
-            redirect(route.getJsp());
+
+            if(!route.isRequiredConnection() || (route.isRequiredConnection() && SecurityService.isConnected(req))) {
+                Object object = process(route, req, resp, context);
+                if(object != null)
+                System.out.println(object.toString());
+            }
+
+        } catch (ClassNotFoundException | NoSuchMethodException e) {
+            e.printStackTrace();
         } catch (URISyntaxException e) {
             for(Route definedRoute : routes){
                 if (PAGE_404.equals(definedRoute.getId()))
@@ -71,7 +68,76 @@ public class RequestRouter {
             e.printStackTrace();
         }
 
+        assert route != null;
         redirect(route.getJsp());
+
+    }
+
+    private Object process(Route route, HttpServletRequest req, HttpServletResponse resp, ServletContext context) throws ClassNotFoundException, NoSuchMethodException {
+        Object data = null;
+        if(!("".equals(route.getTargetedService())) && !("".equals(route.getTargetedMethod()))) {
+            Class<?> service = Class.forName(route.getTargetedService());
+
+            Method method = null;
+            for(Method m : service.getDeclaredMethods()){
+                if(m.getName().equals(route.getTargetedMethod())){
+                    method = m;
+                }
+            }
+
+            if(SecurityService.class.getName().equals(service.getName())){
+                switch (method.getName()){
+                    case "login":
+                        try {
+                            data =  method.invoke(service.newInstance(), getParameters(req,true).toArray());
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        } catch (InvocationTargetException e) {
+                            e.printStackTrace();
+                        } catch (InstantiationException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case "logout":
+                        try {
+                            data =  method.invoke(service.newInstance(), req);
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        } catch (InvocationTargetException e) {
+                            e.printStackTrace();
+                        } catch (InstantiationException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                }
+            }
+
+            else if(method.getParameterCount() == req.getParameterMap().size()){
+                try {
+                    data =  method.invoke(service.newInstance(), getParameters(req,false).toArray());
+                } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        return data;
+
+    }
+
+    private List<Object> getParameters(HttpServletRequest request, boolean includeRequest) {
+        List<Object> values = new ArrayList<>();
+        for(Map.Entry<String, String[]> entry: request.getParameterMap().entrySet()) {
+            values.add(entry.getValue()[0]);
+        }
+
+        if(includeRequest){
+            values.add(request);
+        }
+
+        Collections.reverse(values);
+        return  values;
 
     }
 

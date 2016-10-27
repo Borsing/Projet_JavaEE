@@ -72,7 +72,13 @@ public class FrontControllerServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        RequestDispatcher rd;
+
+        this.handleRequest(req,resp, context);
+        rd = context.getRequestDispatcher("/layout/index.jsp"); // Do not forward to another jsp
+        if(rd != null){
+            rd.forward(req,resp);
+        }
     }
 
     @Override

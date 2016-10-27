@@ -67,9 +67,7 @@ public class DatabaseManager {
             entities.add(participant2);
             entities.add(participant3);
 
-            for (AbstractEntity entity : entities) {
-                entityManager.persist(entity);
-            }
+            entities.forEach(entityManager::persist);
 
             entityManager.getTransaction().commit();
             entityManager.close();

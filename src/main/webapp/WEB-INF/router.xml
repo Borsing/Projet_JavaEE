@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <routes>
-    <route id="login-post" default-route = "true">
+    <route id="login-post" default-route = "true" >
         <method value="POST" />
-        <targeted-service value="OrganizerDAO" />
+        <url value="/login"/>
+        <targeted-service value="modules.security.SecurityService" />
+        <targeted-method value="login"/>
         <parameters>
-            <parameter value="mail" />
+            <parameter value="email" />
             <parameter value="password" />
         </parameters>
-        <jsp value="login.jsp"/>
-        <redirected-jsp value="all-events" />
+        <jsp value="404"/>
     </route>
     <route id="login-get">
         <method value="GET" />
@@ -20,5 +21,20 @@
         <method value="GET" />
         <url value="/404"/>
         <jsp value="404"/>
+    </route>
+    <route id="database">
+        <method value="GET" />
+        <url value="/database"/>
+        <jsp value="database"/>
+    </route>
+    <route id="all-events" required-connection = "false">
+        <method value="GET" />
+        <targeted-service value="modules.event.EventService" />
+        <targeted-method value="getEventById" class = "java.util.Date"/>
+        <parameters>
+            <parameter value="id" />
+        </parameters>
+        <url value="/events"/>
+        <jsp value="login"/>
     </route>
 </routes>

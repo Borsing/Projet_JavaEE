@@ -9,21 +9,31 @@ import java.util.List;
 public class Route {
     private String id = "";
     private boolean defaultRoute = false;
+    private boolean requiredConnection = false;
     private String url = "";
     private String targetedService = "";
+    private String targetedMethod = "";
     private HttpMethod method;
-    private List<String> parameters;
+    private List<String> parameters = new ArrayList<>();
     private String jsp = "";
     private String redirectedJsp = "";
 
-    public Route(String id, boolean defaultRoute) {
-        this.parameters = new ArrayList<>();
+    public Route(String id, boolean defaultRoute, boolean requiredConnection) {
         this.id = id;
         this.defaultRoute = defaultRoute;
+        this.requiredConnection = requiredConnection;
     }
 
     public void addParameter(String parameter) {
         this.parameters.add(parameter);
+    }
+
+    public String getTargetedMethod() {
+        return targetedMethod;
+    }
+
+    public void setTargetedMethod(String targetedMethod) {
+        this.targetedMethod = targetedMethod;
     }
 
     public String getTargetedService() {
@@ -88,17 +98,29 @@ public class Route {
         this.url = url;
     }
 
+    public void setRequiredConnection(boolean requiredConnection) {
+        this.requiredConnection = requiredConnection;
+    }
+
+    public boolean isRequiredConnection() {
+
+        return requiredConnection;
+    }
+
     @Override
     public String toString() {
         return "Route{" +
                 "id='" + id + '\'' +
                 ", defaultRoute=" + defaultRoute +
+                ", requiredConnection=" + requiredConnection +
                 ", url='" + url + '\'' +
                 ", targetedService='" + targetedService + '\'' +
+                ", targetedMethod='" + targetedMethod + '\'' +
                 ", method=" + method +
                 ", parameters=" + parameters +
                 ", jsp='" + jsp + '\'' +
                 ", redirectedJsp='" + redirectedJsp + '\'' +
                 '}';
     }
+
 }
