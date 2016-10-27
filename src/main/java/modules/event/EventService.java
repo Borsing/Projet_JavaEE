@@ -82,10 +82,6 @@ public class EventService {
 	}
 		//get Events in a Month
 	
-	public void removeDoublons(Collection<AbstractEntity> entities){
-		
-	}
-	
 		//get Events By Interval between 2 dates
 		//get Events By Participant
 		//get Events By Creator
