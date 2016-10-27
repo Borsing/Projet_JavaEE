@@ -5,5 +5,19 @@ package modules;
  */
 public abstract class AbstractEntity {
 	
-	public abstract Object getId();
+	public abstract Object getId(); //string ou int
+	
+
+	public boolean equals(Object object){
+		if(!(object instanceof AbstractEntity))
+			return false;
+		return this.getId().equals(((AbstractEntity)object).getId()) ;
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.getId().hashCode();
+	}
+	
+	
 }

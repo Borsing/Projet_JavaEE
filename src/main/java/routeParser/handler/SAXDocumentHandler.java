@@ -22,7 +22,7 @@ public class SAXDocumentHandler extends DefaultHandler {
 
     //début du parsing
     public void startDocument() throws SAXException {
-        System.out.println("Début du parsing");
+        System.out.println("D�but du parsing");
     }
     //fin du parsing
     public void endDocument() throws SAXException {

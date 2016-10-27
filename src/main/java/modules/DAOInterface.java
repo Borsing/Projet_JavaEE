@@ -9,6 +9,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import modules.Field.BooleanOperator;
+
 public interface DAOInterface<T extends AbstractEntity> {
 
     default void create(T entity) {
@@ -61,23 +63,58 @@ public interface DAOInterface<T extends AbstractEntity> {
     
     default T findById(Object id) {
     	EntityManager em = DatabaseManager.getEntityManagerFactory().createEntityManager() ;
+    	em.getTransaction().begin();
     	T entity = em.find(this.getEntityClass(), id);
     	em.close();
     	return entity ;
     }
     
     default List<T> findAll(){
-    	return findByPredicate() ; //no predicate so all values
+    	return findByCriteria(BooleanOperator.OR) ; //no predicate so all values
     }
     
-    default List<T> findByPredicate(Predicate... predicates){
+    //findByCriteria(new Field<String>(), new Field<Integer>())
+    
+    default <K extends Comparable<K>> List<T> findByCriteria(Field.BooleanOperator booleanOperator,Field<?>... fields){
     	EntityManager em = DatabaseManager.getEntityManagerFactory().createEntityManager() ;
     	CriteriaBuilder cb = em.getCriteriaBuilder();
     	CriteriaQuery<T> criteria = cb.createQuery(this.getEntityClass());
-    	
+    	    	
     	//Criteria Definition
-    	Root<T> entity = criteria.from(this.getEntityClass());
-    	criteria.select(entity).where(predicates) ; //no condition
+    	Root<T> root = criteria.from(this.getEntityClass());
+    
+    	Predicate where = cb.conjunction();
+    	for (Field<?> field : fields)
+    	{
+    			if(field.getOperator().equals(Field.Operator.GT)) {
+    				FieldComparable<K> comparableField = (FieldComparable<K>)field ;
+    				if(booleanOperator.equals(Field.BooleanOperator.AND))
+    					where = cb.and(where, cb.greaterThan(root.get(comparableField.getFieldTarget()), comparableField.getValue()));
+    				
+    				else
+    					where = cb.or(where, cb.greaterThan(root.get(comparableField.getFieldTarget()), comparableField.getValue()));
+    			}
+    			
+    			else if(field.getOperator().equals(Field.Operator.LT)) {
+    				FieldComparable<K> comparableField = (FieldComparable<K>)field ;
+    				if(booleanOperator.equals(Field.BooleanOperator.AND))
+    					where = cb.and(where, cb.lessThan(root.get(comparableField.getFieldTarget()), comparableField.getValue()));
+    				
+    				else
+    					where = cb.or(where, cb.lessThan(root.get(comparableField.getFieldTarget()), comparableField.getValue()));
+    			}
+
+    			else if(field.getOperator().equals(Field.Operator.EQ)){
+        			if(booleanOperator.equals(Field.BooleanOperator.AND))
+        				where = cb.and(where, cb.equal(root.get(field.getFieldTarget()), field.getValue()));
+        			else
+        				where = cb.or(where, cb.equal(root.get(field.getFieldTarget()), field.getValue()));	
+        		}
+ 
+    	}
+    	
+    	criteria.select(root).where(where) ;
+
     	
     	Query query = em.createQuery(criteria);
     	
