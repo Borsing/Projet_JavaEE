@@ -4,6 +4,8 @@ import modules.AbstractEntity;
 import modules.event.EventEntity;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -87,11 +89,17 @@ public class ParticipantEntity extends AbstractEntity{
 
     @Override
     public String toString() {
+    	Collection<String> eventsString = new ArrayList<>();
+    	for (EventEntity e : events){
+    		eventsString.add(e.getName());
+    	}    	
+    	
         return "ParticipantEntity{" +
                 "mail='" + mail + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", first_name='" + first_name + '\'' +
                 ", company='" + company + '\'' +
-                '}';
+               ", events='" +  eventsString +
+                "}";
     }
 }

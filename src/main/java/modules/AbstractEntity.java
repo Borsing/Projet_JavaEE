@@ -7,7 +7,7 @@ public abstract class AbstractEntity {
 	
 	public abstract Object getId(); //string ou int
 	
-
+	@Override
 	public boolean equals(Object object){
 		if(!(object instanceof AbstractEntity))
 			return false;
