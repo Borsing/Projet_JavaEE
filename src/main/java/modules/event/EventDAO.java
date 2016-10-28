@@ -1,9 +1,7 @@
 package modules.event;
 
 import modules.DAOInterface;
-import modules.DatabaseManager;
 
-import javax.persistence.EntityManager;
 
 
 /**

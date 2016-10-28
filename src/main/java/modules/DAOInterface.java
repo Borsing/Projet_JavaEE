@@ -45,15 +45,14 @@ public interface DAOInterface<T extends AbstractEntity> {
     default boolean update(T entity){
     	EntityManager em = DatabaseManager.getEntityManagerFactory().createEntityManager() ;
     	em.getTransaction().begin();
-    	
-    	T entityFound = em.find(this.getEntityClass(), entity.getId());
+    	    	
+    	T entityFound = em.merge(entity);
     	
     	if(entityFound == null)
     		return false; 
     	
+
     	entityFound = entity ;
-    	
-    	em.persist(entityFound);
     	
     	em.getTransaction().commit();
     	em.close();
@@ -75,6 +74,10 @@ public interface DAOInterface<T extends AbstractEntity> {
     
     //findByCriteria(new Field<String>(), new Field<Integer>())
     
+    default <K extends Comparable<K>> List<T> findByCriteria(Field<?> field){ 
+    	return findByCriteria(Field.BooleanOperator.AND,field);
+    }
+    
     default <K extends Comparable<K>> List<T> findByCriteria(Field.BooleanOperator booleanOperator,Field<?>... fields){
     	EntityManager em = DatabaseManager.getEntityManagerFactory().createEntityManager() ;
     	CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -86,22 +89,22 @@ public interface DAOInterface<T extends AbstractEntity> {
     	Predicate where = cb.conjunction();
     	for (Field<?> field : fields)
     	{
-    			if(field.getOperator().equals(Field.Operator.GT)) {
+    			if(field.getOperator().equals(Field.Operator.GE)) {
     				FieldComparable<K> comparableField = (FieldComparable<K>)field ;
     				if(booleanOperator.equals(Field.BooleanOperator.AND))
-    					where = cb.and(where, cb.greaterThan(root.get(comparableField.getFieldTarget()), comparableField.getValue()));
+    					where = cb.and(where, cb.greaterThanOrEqualTo(root.get(comparableField.getFieldTarget()), comparableField.getValue()));
     				
     				else
-    					where = cb.or(where, cb.greaterThan(root.get(comparableField.getFieldTarget()), comparableField.getValue()));
+    					where = cb.or(where, cb.greaterThanOrEqualTo(root.get(comparableField.getFieldTarget()), comparableField.getValue()));
     			}
     			
-    			else if(field.getOperator().equals(Field.Operator.LT)) {
+    			else if(field.getOperator().equals(Field.Operator.LE)) {
     				FieldComparable<K> comparableField = (FieldComparable<K>)field ;
     				if(booleanOperator.equals(Field.BooleanOperator.AND))
-    					where = cb.and(where, cb.lessThan(root.get(comparableField.getFieldTarget()), comparableField.getValue()));
+    					where = cb.and(where, cb.lessThanOrEqualTo(root.get(comparableField.getFieldTarget()), comparableField.getValue()));
     				
     				else
-    					where = cb.or(where, cb.lessThan(root.get(comparableField.getFieldTarget()), comparableField.getValue()));
+    					where = cb.or(where, cb.lessThanOrEqualTo(root.get(comparableField.getFieldTarget()), comparableField.getValue()));
     			}
 
     			else if(field.getOperator().equals(Field.Operator.EQ)){
@@ -109,6 +112,14 @@ public interface DAOInterface<T extends AbstractEntity> {
         				where = cb.and(where, cb.equal(root.get(field.getFieldTarget()), field.getValue()));
         			else
         				where = cb.or(where, cb.equal(root.get(field.getFieldTarget()), field.getValue()));	
+        		} 
+    			
+    			else if(field.getOperator().equals(Field.Operator.IM)){
+        			if(booleanOperator.equals(Field.BooleanOperator.AND))
+        				where = cb.and(cb.isMember(field.getValue(), root.get(field.getFieldTarget())));
+        			
+        			else
+        				where = cb.or(cb.isMember(field.getValue(), root.get(field.getFieldTarget())));
         		}
  
     	}
