@@ -9,6 +9,11 @@ public class OrganizerService {
 	
 	OrganizerDAO orgaDao = new OrganizerDAO();
 	EventDAO eventDao = new EventDAO();
+	
+	public OrganizerEntity findOrganizerById(String user){
+		return  orgaDao.findById(user);
+		
+	}
 
 	//select
 	public boolean checkLogin(String user, String password){

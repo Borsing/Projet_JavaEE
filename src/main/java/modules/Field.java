@@ -7,7 +7,7 @@ public class Field<T>{
 	}
 	
 	public enum  Operator {
-		EQ, GE, LE
+		EQ, GE, LE, IM
 	}
 	
 	private Operator operator ;

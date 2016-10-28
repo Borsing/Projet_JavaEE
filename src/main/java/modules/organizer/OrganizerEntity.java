@@ -29,7 +29,7 @@ public class OrganizerEntity extends AbstractEntity {
     @Column(name = "company", nullable = false)
     private String company;
 
-    @OneToMany(mappedBy="organizer_id", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="organizer_id", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private Collection<EventEntity> events;
 
     public OrganizerEntity(String mail, String password, String last_name, String first_name, String company, Collection<EventEntity> events) {

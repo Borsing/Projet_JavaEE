@@ -25,7 +25,12 @@ public class DatabaseManager {
 
     /** Constructeur privé */
     private DatabaseManager() {
+    	this.openEntityManagerFactory();
+    }
+    
+    public void openEntityManagerFactory(){
         entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+
     }
 
     /** Point d'accès pour l'instance unique du singleton */

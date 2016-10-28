@@ -112,6 +112,14 @@ public interface DAOInterface<T extends AbstractEntity> {
         				where = cb.and(where, cb.equal(root.get(field.getFieldTarget()), field.getValue()));
         			else
         				where = cb.or(where, cb.equal(root.get(field.getFieldTarget()), field.getValue()));	
+        		} 
+    			
+    			else if(field.getOperator().equals(Field.Operator.IM)){
+        			if(booleanOperator.equals(Field.BooleanOperator.AND))
+        				where = cb.and(cb.isMember(field.getValue(), root.get(field.getFieldTarget())));
+        			
+        			else
+        				where = cb.or(cb.isMember(field.getValue(), root.get(field.getFieldTarget())));
         		}
  
     	}

@@ -23,6 +23,13 @@ public class TestDao {
 		databaseManager.populate();
 		EventService es = new EventService();
 		ParticipantService ps = new ParticipantService() ;
+		
+		ps.createParticipant("toto", "tat", "atat", "atat");
+		System.out.println("toot = " +ps.findById("toto"));
+		
+		
+		
+		
 		//System.out.println(es.findAllEvents());
 		/*System.out.println(es.getAllEvents());
 		//fonctionne !
@@ -45,15 +52,18 @@ public class TestDao {
 		//            ParticipantEntity participant1 = new ParticipantEntity("participant1@gmail.com","nomP1","prenomP1","Company1",null);
 		
 		//System.out.println(es.findEventById(1));
+		/*System.out.println("false ? = " +ps.isParticipating("participant1@gmail.com", 1));
 		System.out.println(ps.joinEvent(1,"participant1@gmail.com","toot","prenomP1","Company1"));
 		System.out.println(es.findEventById(1));
 		System.out.println(ps.findById("participant1@gmail.com"));
+		System.out.println("true ? = " +ps.isParticipating("participant1@gmail.com", 1));
 
 		/*System.out.println(ps.isParticipating("participant1@gmail.com", 1));
 		System.out.println(es.findEventById(1));*/
-		ps.quitEvent(1, "participant1@gmail.com");
+		/*ps.quitEvent(1, "participant1@gmail.com");
+		System.out.println("false ? = " +ps.isParticipating("participant1@gmail.com", 1));
 		System.out.println(es.findEventById(1));
-		System.out.println(ps.findById("participant1@gmail.com"));
+		System.out.println(ps.findById("participant1@gmail.com"));*/
 		/*
 		try {
 			String a = (String)ArgumentsParser.convertTo("java.lang.String", "toto");
