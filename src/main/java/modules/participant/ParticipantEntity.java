@@ -28,7 +28,7 @@ public class ParticipantEntity extends AbstractEntity{
     @Column(name = "company", nullable = false)
     private String company;
 
-    @ManyToMany(mappedBy = "participants", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "participants", fetch = FetchType.EAGER)
     private Collection<EventEntity> events;
 
     public ParticipantEntity(String mail, String last_name, String first_name, String company, Collection<EventEntity> events) {

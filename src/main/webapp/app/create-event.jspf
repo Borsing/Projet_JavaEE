@@ -1,6 +1,5 @@
 <!-- jspf showing how to create an event | Can only appear while connected. -->
 
-<dialog class="mdl-dialog" id="modal-create-event">
     <form>
         <h5 class="mdl-dialog__title">Creation d'event</h5>
         <div class="mdl-dialog__actions">
@@ -8,7 +7,6 @@
             <button type="button" class="mdl-button create-event-close">annuler</button>
         </div>
     </form>
-</dialog>
 
 <script>
     var dialogCreateEvent = document.querySelector('#modal-create-event');

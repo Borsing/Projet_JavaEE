@@ -3,6 +3,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <c:choose>
+    <c:when test="${page=='login'}">
+        <c:import url="../app/login.jspf"/>
+    </c:when>
     <c:when test="${page=='events'}">
         <c:import url="../app/events.jspf"/>
     </c:when>

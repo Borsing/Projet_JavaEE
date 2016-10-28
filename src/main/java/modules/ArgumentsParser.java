@@ -1,5 +1,6 @@
 package modules;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,21 +16,29 @@ public class ArgumentsParser {
 	 *		Date c = (Date)ArgumentsParser.convertTo("java.util.Date", "15/05/1994/12:10:00");
 	 *
 	 */
-	public static Object convertTo(String className, String value) throws ClassNotFoundException, ParseException{
-		Class<?> clazz = Class.forName(className);
-		
-		if(clazz.equals(String.class))	
+	public static Object convertTo(Class classType, Object value) throws ClassNotFoundException, ParseException{
+
+		if(classType.equals(String.class))
 			return value ;
 		
-		if(clazz.equals(Integer.class)){
-			int intValue = Integer.parseInt(value);
+		if(classType.equals(Integer.class)){
+			int intValue = Integer.parseInt((String) value);
+			return intValue ;
+		}
+
+		if(classType.equals(int.class)){
+			int intValue = Integer.parseInt((String) value);
 			return intValue ;
 		}
 		
-		if(clazz.equals(Date.class)){
+		if(classType.equals(Date.class)){
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy/HH:mm");
-			Date date = sdf.parse(value);
+			Date date = sdf.parse((String) value);
 			return date ;
+		}
+
+		if(classType.equals(HttpServletRequest.class)){
+			return value ;
 		}
 		
 		return null ;

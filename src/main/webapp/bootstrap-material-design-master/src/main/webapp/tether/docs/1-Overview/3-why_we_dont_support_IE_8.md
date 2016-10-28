@@ -34,7 +34,7 @@ why they can't update are dwindling.  There are two big reasons for continuing I
 
 #### Enterprises
 
-  Microsoft is dropping support for XP in April, organizations who want security updates will have to upgrade.
+  Microsoft is dropping support for XP in April, organizations who want modules.security updates will have to upgrade.
 
 #### China uses XP
 

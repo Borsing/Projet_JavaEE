@@ -1,6 +1,9 @@
 package modules.event;
 
 import modules.DAOInterface;
+import modules.DatabaseManager;
+
+import javax.persistence.EntityManager;
 
 
 /**
@@ -12,7 +15,6 @@ public class EventDAO implements DAOInterface<EventEntity>{
 	public Class<EventEntity> getEntityClass() {
 		return EventEntity.class;
 	}
-
 
 
 }

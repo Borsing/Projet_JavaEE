@@ -33,17 +33,11 @@ public class FrontControllerServlet extends HttpServlet{
     public void init() throws ServletException {
         super.init();
         try {
-
-            System.out.println("INIT SERVLET ");
             context = getServletContext();
-            ROUTER.setContext(context);
+            ROUTER.setContext(getServletContext());
             ROUTER.initRoutes();
             databaseManager.populate();
         } catch (PersistenceException | ClassNotFoundException | ParseException ex) {
-            /*System.out.println("EXCEPTION CLASS NAME: " + ex.getClass().getName().toString());
-            System.out.println("THROWABLE CLASS NAME: " + ex.getCause().getClass().getName().toString());
-            Throwable th = ex.getCause();
-            System.out.println("THROWABLE INFO: " + th.getCause().getClass().getName().toString());*/
             ex.printStackTrace();
         }
     }
@@ -59,12 +53,6 @@ public class FrontControllerServlet extends HttpServlet{
             rd.forward(req,resp);
         }
 
-        /*PrintWriter pr = resp.getWriter();
-
-        databaseManager.listEntitiesOfDatabase().forEach(pr::println);*/
-
-
-
     }
 
     private void handleRequest(HttpServletRequest req, HttpServletResponse resp, ServletContext context) {
@@ -73,7 +61,13 @@ public class FrontControllerServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        RequestDispatcher rd;
+
+        this.handleRequest(req,resp, context);
+        rd = context.getRequestDispatcher("/layout/index.jsp"); // Do not forward to another jsp
+        if(rd != null){
+            rd.forward(req,resp);
+        }
     }
 
     @Override

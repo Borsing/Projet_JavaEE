@@ -50,9 +50,9 @@ public class DatabaseManager {
             OrganizerEntity organizer2 = new OrganizerEntity("benjamin.robertcadoret@gmail.com", "benjamin", "Robert", "Benjamin", "AMADEUS", null);
             OrganizerEntity organizer3 = new OrganizerEntity("denis.allard@gmail.com", "denis", "Allard", "Denis", "THALES", null);
 
-            EventEntity event1 = new EventEntity("Event de Adrien", "C'est l'événement d'Adrien", (Date)ArgumentsParser.convertTo("java.util.Date", "14/05/2016/11:00"),(Date)ArgumentsParser.convertTo("java.util.Date", "14/05/2016/18:00"), "Adresse d'Adrien", organizer1, null);
-            EventEntity event2 = new EventEntity("Event de Benjamin", "C'est l'événement de Benjamin", (Date)ArgumentsParser.convertTo("java.util.Date", "14/05/2016/12:00"),(Date)ArgumentsParser.convertTo("java.util.Date", "15/05/2016/18:00"), "Adresse de Benjamin", organizer2, null);
-            EventEntity event3 = new EventEntity("Event de Denis", "C'est l'événement de Denis", (Date)ArgumentsParser.convertTo("java.util.Date", "16/05/2016/00:00"),(Date)ArgumentsParser.convertTo("java.util.Date", "16/05/2016/13:00"), "Adresse de Denis", organizer3, null);
+            EventEntity event1 = new EventEntity("Event de Adrien", "C'est l'événement d'Adrien", (Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/11:00"),(Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/18:00"), "Adresse d'Adrien", organizer1, null);
+            EventEntity event2 = new EventEntity("Event de Benjamin", "C'est l'événement de Benjamin", (Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/12:00"),(Date)ArgumentsParser.convertTo(Date.class, "15/05/2016/18:00"), "Adresse de Benjamin", organizer2, null);
+            EventEntity event3 = new EventEntity("Event de Denis", "C'est l'événement de Denis", (Date)ArgumentsParser.convertTo(Date.class, "16/05/2016/00:00"),(Date)ArgumentsParser.convertTo(Date.class, "16/05/2016/13:00"), "Adresse de Denis", organizer3, null);
 
             ParticipantEntity participant1 = new ParticipantEntity("participant1@gmail.com","nomP1","prenomP1","Company1",null);
             ParticipantEntity participant2 = new ParticipantEntity("participant2@gmail.com","nomP2","prenomP2","Company2",null);
@@ -69,9 +69,7 @@ public class DatabaseManager {
             entities.add(participant2);
             entities.add(participant3);
 
-            for (AbstractEntity entity : entities) {
-                entityManager.persist(entity);
-            }
+            entities.forEach(entityManager::persist);
 
             entityManager.getTransaction().commit();
             entityManager.close();

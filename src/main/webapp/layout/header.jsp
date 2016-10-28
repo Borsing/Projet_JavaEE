@@ -18,6 +18,6 @@
     </div>
 </header>
 
-<jsp:include page="${pageContext.servletContext.contextPath}/app/create-event.jspf"/>
+<%--<jsp:include page="${pageContext.servletContext.contextPath}/app/create-event.jspf"/>
 <jsp:include page="${pageContext.servletContext.contextPath}/app/login.jspf"/>
-<jsp:include page="${pageContext.servletContext.contextPath}/app/register.jspf"/>
+<jsp:include page="${pageContext.servletContext.contextPath}/app/register.jspf"/>--%>

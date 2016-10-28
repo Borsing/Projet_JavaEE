@@ -1,27 +1,21 @@
 package servlet.utils;
 
 
-import modules.event.EventDAO;
-import modules.participant.ParticipantDAO;
-import modules.organizer.OrganizerDAO;
-import org.w3c.dom.*;
-import org.xml.sax.SAXException;
+import modules.ArgumentsParser;
 import routeParser.RouteXML;
-import routeParser.handler.SAXDocumentHandler;
 import routeParser.om.Route;
+import modules.security.SecurityService;
 
-import javax.print.URIException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.*;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
+import javax.servlet.http.HttpSession;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by adric on 07/10/2016.
@@ -45,24 +39,24 @@ public class RequestRouter {
     }
 
     public void initRoutes() {
-
         routes = RouteXML.parse(getContext());
-        System.out.println("Routes " +  routes.toString());
-
     }
-
-
 
 
     public void handleRequest(HttpServletRequest req, HttpServletResponse resp, ServletContext context) {
 
         Route route = null;
+        Object data = null;
 
         try {
             route = getRouteOfURL(req.getPathInfo(),req.getParameterMap(),req.getMethod());
-            // TODO Call the Database Manager if needed and redirect the right page passing the database Response
-            System.out.println(route.toString());
-            redirect(route.getJsp());
+
+            if(!route.isRequiredConnection() || (route.isRequiredConnection() && SecurityService.isConnected(req))) {
+                data = process(route, req, resp, context);
+            }
+
+        } catch (ClassNotFoundException | NoSuchMethodException e) {
+            e.printStackTrace();
         } catch (URISyntaxException e) {
             for(Route definedRoute : routes){
                 if (PAGE_404.equals(definedRoute.getId()))
@@ -71,22 +65,92 @@ public class RequestRouter {
             e.printStackTrace();
         }
 
-        redirect(route.getJsp());
+        assert route != null;
+        redirect(route.getJsp(), SecurityService.getUserSession(req), data);
 
     }
 
-    // TODO Insert the response here too.
-    private void redirect(String jsp) {
+    private Object process(Route route, HttpServletRequest req, HttpServletResponse resp, ServletContext context) throws ClassNotFoundException, NoSuchMethodException {
+        Object data = null;
+        if(!("".equals(route.getTargetedService())) && !("".equals(route.getTargetedMethod()))) {
+            Class<?> service = Class.forName(route.getTargetedService());
+
+            Method method = null;
+            for(Method m : service.getDeclaredMethods()){
+                if(m.getName().equals(route.getTargetedMethod())){
+                    method = m;
+                }
+            }
+
+            try {
+                if(SecurityService.class.getName().equals(service.getName())){
+                    assert method != null;
+                    data =  method.invoke(service.newInstance(), getMethodParameters(req,method.getParameterTypes(),true).toArray());
+                } else {
+                    assert method != null;
+                    data = method.invoke(service.newInstance(), getMethodParameters(req, method.getParameterTypes(), false).toArray());
+                }
+            } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return data;
+
+    }
+
+    private List<Object> getMethodParameters(HttpServletRequest request, Class<?>[] parameterTypes, boolean includeRequest) {
+        List<Object> values = new ArrayList<>();
+
+        System.out.println("values.toString() = " + Arrays.toString(parameterTypes));
+        
+        List<Object> mapValues = new ArrayList<>();
+
+        System.out.println("request.getParameterMap() = " + request.getParameterMap().toString());
+
+        for (Map.Entry<String, String[]> entry : request.getParameterMap().entrySet())
+        {
+            mapValues.add(entry.getValue()[0]);
+        }
+
+        if(includeRequest){
+            mapValues.add(request);
+        }
+
+        for(int i=0; i < parameterTypes.length ;i++){
+            try {
+                values.add(ArgumentsParser.convertTo(parameterTypes[i],mapValues.get(i)));
+            } catch (ClassNotFoundException | ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Collections.reverse(values);
+
+        System.out.println("mapValues after = " + values.toString());
+
+        return  values;
+
+    }
+
+    private void redirect(String jsp, HttpSession session, Object data) {
+        System.out.println("jsp = [" + jsp + "]");
+        if(session != null)
+            System.out.println("session = [" + session.getAttribute(SecurityService.ATT_SESSION_USER) + "]");
+        else
+            System.out.println("session  =  null");
+        if(data != null)
+        System.out.println("data = [" + data + "]");
+        else{
+            System.out.println("data =  [pas de données]");
+        }
+        context.setAttribute("session", session);
+        context.setAttribute("data", data);
         context.setAttribute(PAGE,jsp);
     }
 
     private Route getRouteOfURL(String pathInfo, Map parameters, String method) throws URISyntaxException{
 
-        System.out.println("Methode : " + method + " PATH INFO " + pathInfo);
-        System.out.println("Parametres : " + parameters.toString());
-
-
-        // Get the Route matching with the urlFragments and the method
         for(Route definedRoute : routes){
             if(definedRoute.getMethod().getValue().equals(method)
                     && definedRoute.getUrl().equals(pathInfo)

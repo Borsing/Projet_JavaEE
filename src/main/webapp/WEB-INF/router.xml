@@ -1,37 +1,246 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <routes>
-    <route id="login-post" default-route = "true">
+
+    <route id="home">
+        <method value="GET" />
+        <url value="/"/>
+        <jsp value="events"/>
+    </route>
+
+    <route id="login-get">
+        <method value="GET" />
+        <url value="/login"/>
+        <jsp value="login"/>
+    </route>
+
+    <route id="login-post" >
         <method value="POST" />
-        <targeted-service value="OrganizerDAO" />
+        <url value="/login"/>
+        <targeted-service value="modules.security.SecurityService" />
+        <targeted-method value="login"/>
+        <parameters>
+            <parameter value="email" />
+            <parameter value="password" />
+        </parameters>
+        <jsp value="events"/>
+    </route>
+
+    <route id="register-get">
+        <method value="GET" />
+        <url value="/register"/>
+        <jsp value="register"/>
+    </route>
+
+    <route id="register-post" >
+        <method value="POST" />
+        <url value="/register"/>
+        <targeted-service value="modules.organizer.OrganizerService" />
+        <targeted-method value="register"/>
+        <parameters>
+            <parameter value="mail" />
+            <parameter value="password" />
+            <parameter value="last_name" />
+            <parameter value="first_name" />
+            <parameter value="company" />
+        </parameters>
+        <jsp value="login"/>
+    </route>
+
+    <route id="unregister-post">
+        <method value="POST" />
+        <targeted-service value="modules.organizer.OrganizerService" />
+        <targeted-method value="unregister"/>
+        <parameters>
+            <parameter value="mail" />
+        </parameters>
+        <url value="/unregister"/>
+        <jsp value="events"/>
+    </route>
+
+    <route id="change-password-get">
+        <method value="GET" />
+        <url value="/change-password"/>
+        <jsp value="change-password"/>
+    </route>
+
+    <route id="change-password-post">
+        <method value="POST" />
+        <targeted-service value="modules.organizer.OrganizerService" />
+        <targeted-method value="changePassword"/>
         <parameters>
             <parameter value="mail" />
             <parameter value="password" />
         </parameters>
-        <jsp value="login"/>
-        <redirected-jsp value="all-events" />
+        <url value="/change-password"/>
+        <jsp value="change-password"/>
     </route>
-    <route id="404">
-        <method value="GET" />
-        <url value="/404"/>
-        <jsp value="404"/>
+
+    <route id="logout-post">
+        <method value="POST" />
+        <url value="/logout"/>
+        <jsp value="events"/>
     </route>
-    <route id="all-events">
+
+    <route id="all-events-get">
         <method value="GET" />
+        <targeted-service value="modules.event.EventService" />
+        <targeted-method value="getAllEvents"/>
         <url value="/events"/>
         <jsp value="events"/>
     </route>
-    <route id="all-events">
+
+    <route id="create-event-get">
+        <method value="GET" />
+        <url value="/create-event"/>
+        <jsp value="create-event"/>
+    </route>
+
+    <route id="create-event-post">
         <method value="POST" />
+        <targeted-service value="modules.event.EventService" />
+        <targeted-method value="createEvent"/>
         <parameters>
-            <parameter value="search"/>
+            <parameter value="name" />
+            <parameter value="description" />
+            <parameter value="begin_date" />
+            <parameter value="end_date" />
+            <parameter value="address" />
+            <parameter value="organizer_id" />
         </parameters>
         <url value="/events"/>
         <jsp value="events"/>
     </route>
-    <route id="my-events">
+
+    <route id="delete-event-post">
+        <method value="POST" />
+        <targeted-service value="modules.event.EventService" />
+        <targeted-method value="removeEvent"/>
+        <parameters>
+            <parameter value="id" />
+        </parameters>
+        <url value="/remove-event"/>
+        <jsp value="my-events"/>
+    </route>
+
+    <route id="edit-event-get">
+        <method value="GET" />
+        <targeted-service value="modules.event.EventService" />
+        <targeted-method value="getEventById"/>
+        <parameters>
+            <parameter value="id" />
+        </parameters>
+        <url value="/edit-event"/>
+        <jsp value="edit-event"/>
+    </route>
+
+    <route id="edit-event-post">
+        <method value="POST" />
+        <targeted-service value="modules.event.EventService" />
+        <targeted-method value="updateEvent"/>
+        <parameters>
+            <parameter value="id" />
+            <parameter value="name" />
+            <parameter value="description" />
+            <parameter value="begin_date" />
+            <parameter value="end_date" />
+            <parameter value="address" />
+            <parameter value="organizer_id" />
+        </parameters>
+        <url value="/edit-event"/>
+        <jsp value="edit-event"/>
+    </route>
+
+    <route id="my-events-get">
         <method value="GET" />
         <url value="/my-events"/>
         <jsp value="my-events"/>
+    </route>
+
+    <route id="my-events-post">
+        <method value="POST" />
+        <targeted-service value="modules.event.EventService" />
+        <targeted-method value="findEventsByParticipant"/>
+        <parameters>
+            <parameter value="mail"/>
+        </parameters>
+        <url value="/my-events"/>
+        <jsp value="my-events"/>
+    </route>
+
+    <route id="my-created-events-get">
+        <method value="GET" />
+        <targeted-service value="modules.event.EventService" />
+        <targeted-method value="findEventByOrganizer"/>
+        <parameters>
+            <parameter value="mail"/>
+        </parameters>
+        <url value="/my-created-events"/>
+        <jsp value="my-created-events"/>
+    </route>
+
+    <route id="update-profil-get">
+        <method value="GET" />
+        <targeted-service value="modules.organizer.OrganizerService" />
+        <targeted-method value="findOrganizerById"/>
+        <parameters>
+            <parameter value="mail"/>
+        </parameters>
+        <url value="/update-profil"/>
+        <jsp value="update-profil"/>
+    </route>
+
+    <route id="update-profil-post">
+        <method value="POST" />
+        <targeted-service value="modules.organizer.OrganizerService" />
+        <targeted-method value="updateProfil"/>
+        <parameters>
+            <parameter value="mail" />
+            <parameter value="password" />
+            <parameter value="last_name" />
+            <parameter value="first_name" />
+            <parameter value="company" />
+        </parameters>
+        <url value="/update-profil"/>
+        <jsp value="update-profil"/>
+    </route>
+
+    <route id="join-event-get">
+        <method value="GET" />
+        <url value="/join-event"/>
+        <jsp value="join-event"/>
+    </route>
+
+    <route id="join-event-post">
+        <method value="POST" />
+        <targeted-service value="modules.participant.ParticipantService" />
+        <targeted-method value="joinEvent"/>
+        <parameters>
+            <parameter value="event" />
+            <parameter value="mail" />
+            <parameter value="last_name" />
+            <parameter value="first_name" />
+            <parameter value="company" />
+        </parameters>
+        <url value="/join-event"/>
+        <jsp value="events"/>
+    </route>
+
+    <route id="remove-participant-post">
+        <method value="POST" />
+        <targeted-service value="modules.participant.ParticipantService" />
+        <targeted-method value="removeParticipantFromEvent"/>
+        <parameters>
+            <parameter value="id" />
+            <parameter value="mail" />
+        </parameters>
+        <url value="/remove-participant"/>
+        <jsp value="events-created"/>
+    </route>
+
+    <route id="404">
+        <method value="GET" />
+        <url value="/404"/>
+        <jsp value="404"/>
     </route>
 </routes>

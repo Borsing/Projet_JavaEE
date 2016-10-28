@@ -28,10 +28,11 @@ public class TestDao {
 		//fonctionne !
 		System.out.println(es.getEventById(2));
 		
-		System.out.println("EventOnDay 14 = " + es.getEventsOnDay((Date)ArgumentsParser.convertTo("java.util.Date", "14/05/2016/00:00")));
+		System.out.println("EventOnDay 14 = " + es.getEventsOnDay((Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/00:00")));
 		
-		System.out.println("EventOnDay 15 = " + es.getEventsOnDay((Date)ArgumentsParser.convertTo("java.util.Date", "15/05/2016/00:00")));
+		System.out.println("EventOnDay 15 = " + es.getEventsOnDay((Date)ArgumentsParser.convertTo(Date.class, "15/05/2016/00:00")));
 		
+
 		System.out.println("EventOnDay 16 = " + es.getEventsOnDay((Date)ArgumentsParser.convertTo("java.util.Date", "16/05/2016/00:00")));*/
 		
 		/*

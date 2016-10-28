@@ -44,13 +44,16 @@ public class SAXDocumentHandler extends DefaultHandler {
                 break;
             case "route":
                 assert attrs != null;
-                route = new Route(attrs.getValue("id"), Boolean.valueOf(attrs.getValue("default-route")));
+                route = new Route(attrs.getValue("id"), Boolean.valueOf(attrs.getValue("default-route")), Boolean.valueOf(attrs.getValue("required-connection")));
                 break;
             case "method":
                 route.setMethod(HttpMethod.valueOf(attrs.getValue(value)));
                 break;
             case "targeted-service":
                 route.setTargetedService(attrs.getValue(value));
+                break;
+            case "targeted-method":
+                route.setTargetedMethod(attrs.getValue(value));
                 break;
             case "parameter":
                 route.getParameters().add(attrs.getValue(value));
