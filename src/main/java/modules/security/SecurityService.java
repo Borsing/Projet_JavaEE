@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
  */
 public class SecurityService {
 
-    private static final String ATT_SESSION_USER = "session-user";
+    public static final String ATT_SESSION_USER = "session-user";
 
 
     public void logout(HttpServletRequest req){
@@ -26,14 +26,18 @@ public class SecurityService {
         return !(session == null || session.getAttribute(ATT_SESSION_USER) == null);
     }
 
-    public void login(HttpServletRequest req, String user, String password) {
+    public void login(HttpServletRequest req, String mail, String password) {
 
 
         HttpSession httpSession = req.getSession();
-        httpSession.setAttribute(ATT_SESSION_USER, user);
+        httpSession.setAttribute(ATT_SESSION_USER, mail);
 
 
-        System.out.println("je me suis connecte avec " + user);
+        System.out.println("je me suis connecte avec " + mail);
 
+    }
+
+    public static HttpSession getUserSession(HttpServletRequest req){
+        return req.getSession(false);
     }
 }

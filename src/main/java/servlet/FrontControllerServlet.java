@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 
 /**
  * Created by adric on 07/10/2016.
@@ -32,17 +33,11 @@ public class FrontControllerServlet extends HttpServlet{
     public void init() throws ServletException {
         super.init();
         try {
-
-            System.out.println("INIT SERVLET ");
             context = getServletContext();
-            ROUTER.setContext(context);
+            ROUTER.setContext(getServletContext());
             ROUTER.initRoutes();
             databaseManager.populate();
-        } catch (PersistenceException ex) {
-            /*System.out.println("EXCEPTION CLASS NAME: " + ex.getClass().getName().toString());
-            System.out.println("THROWABLE CLASS NAME: " + ex.getCause().getClass().getName().toString());
-            Throwable th = ex.getCause();
-            System.out.println("THROWABLE INFO: " + th.getCause().getClass().getName().toString());*/
+        } catch (PersistenceException | ClassNotFoundException | ParseException ex) {
             ex.printStackTrace();
         }
     }
@@ -57,12 +52,6 @@ public class FrontControllerServlet extends HttpServlet{
         if(rd != null){
             rd.forward(req,resp);
         }
-
-        /*PrintWriter pr = resp.getWriter();
-
-        databaseManager.listEntitiesOfDatabase().forEach(pr::println);*/
-
-
 
     }
 

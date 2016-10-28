@@ -1,6 +1,7 @@
 package servlet.utils;
 
 
+import modules.ArgumentsParser;
 import routeParser.RouteXML;
 import routeParser.om.Route;
 import modules.security.SecurityService;
@@ -8,9 +9,11 @@ import modules.security.SecurityService;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.*;
 import java.util.List;
 
@@ -36,26 +39,20 @@ public class RequestRouter {
     }
 
     public void initRoutes() {
-
         routes = RouteXML.parse(getContext());
-        System.out.println("Routes " +  routes.toString());
-
     }
-
-
 
 
     public void handleRequest(HttpServletRequest req, HttpServletResponse resp, ServletContext context) {
 
         Route route = null;
+        Object data = null;
 
         try {
             route = getRouteOfURL(req.getPathInfo(),req.getParameterMap(),req.getMethod());
 
             if(!route.isRequiredConnection() || (route.isRequiredConnection() && SecurityService.isConnected(req))) {
-                Object object = process(route, req, resp, context);
-                if(object != null)
-                System.out.println(object.toString());
+                data = process(route, req, resp, context);
             }
 
         } catch (ClassNotFoundException | NoSuchMethodException e) {
@@ -69,7 +66,7 @@ public class RequestRouter {
         }
 
         assert route != null;
-        redirect(route.getJsp());
+        redirect(route.getJsp(), SecurityService.getUserSession(req), data);
 
     }
 
@@ -85,74 +82,75 @@ public class RequestRouter {
                 }
             }
 
-            if(SecurityService.class.getName().equals(service.getName())){
-                switch (method.getName()){
-                    case "login":
-                        try {
-                            data =  method.invoke(service.newInstance(), getParameters(req,true).toArray());
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        } catch (InvocationTargetException e) {
-                            e.printStackTrace();
-                        } catch (InstantiationException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case "logout":
-                        try {
-                            data =  method.invoke(service.newInstance(), req);
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        } catch (InvocationTargetException e) {
-                            e.printStackTrace();
-                        } catch (InstantiationException e) {
-                            e.printStackTrace();
-                        }
-                        break;
+            try {
+                if(SecurityService.class.getName().equals(service.getName())){
+                    assert method != null;
+                    data =  method.invoke(service.newInstance(), getMethodParameters(req,method.getParameterTypes(),true).toArray());
+                } else {
+                    assert method != null;
+                    data = method.invoke(service.newInstance(), getMethodParameters(req, method.getParameterTypes(), false).toArray());
                 }
+            } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
+                e.printStackTrace();
             }
-
-            else if(method.getParameterCount() == req.getParameterMap().size()){
-                try {
-                    data =  method.invoke(service.newInstance(), getParameters(req,false).toArray());
-                } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
-                    e.printStackTrace();
-                }
-            }
-
         }
 
         return data;
 
     }
 
-    private List<Object> getParameters(HttpServletRequest request, boolean includeRequest) {
+    private List<Object> getMethodParameters(HttpServletRequest request, Class<?>[] parameterTypes, boolean includeRequest) {
         List<Object> values = new ArrayList<>();
-        for(Map.Entry<String, String[]> entry: request.getParameterMap().entrySet()) {
-            values.add(entry.getValue()[0]);
+
+        System.out.println("values.toString() = " + Arrays.toString(parameterTypes));
+        
+        List<Object> mapValues = new ArrayList<>();
+
+        System.out.println("request.getParameterMap() = " + request.getParameterMap().toString());
+
+        for (Map.Entry<String, String[]> entry : request.getParameterMap().entrySet())
+        {
+            mapValues.add(entry.getValue()[0]);
         }
 
         if(includeRequest){
-            values.add(request);
+            mapValues.add(request);
+        }
+
+        for(int i=0; i < parameterTypes.length ;i++){
+            try {
+                values.add(ArgumentsParser.convertTo(parameterTypes[i],mapValues.get(i)));
+            } catch (ClassNotFoundException | ParseException e) {
+                e.printStackTrace();
+            }
         }
 
         Collections.reverse(values);
+
+        System.out.println("mapValues after = " + values.toString());
+
         return  values;
 
     }
 
-    // TODO Insert the response here too.
-    private void redirect(String jsp) {
+    private void redirect(String jsp, HttpSession session, Object data) {
+        System.out.println("jsp = [" + jsp + "]");
+        if(session != null)
+            System.out.println("session = [" + session.getAttribute(SecurityService.ATT_SESSION_USER) + "]");
+        else
+            System.out.println("session  =  null");
+        if(data != null)
+        System.out.println("data = [" + data + "]");
+        else{
+            System.out.println("data =  [pas de données]");
+        }
+        context.setAttribute("session", session);
+        context.setAttribute("data", data);
         context.setAttribute(PAGE,jsp);
     }
 
     private Route getRouteOfURL(String pathInfo, Map parameters, String method) throws URISyntaxException{
 
-        System.out.println("Methode : " + method + " PATH INFO " + pathInfo);
-        System.out.println("Parametres : " + parameters.toString());
-
-
-        // Get the Route matching with the urlFragments and the method
         for(Route definedRoute : routes){
             if(definedRoute.getMethod().getValue().equals(method)
                     && definedRoute.getUrl().equals(pathInfo)
