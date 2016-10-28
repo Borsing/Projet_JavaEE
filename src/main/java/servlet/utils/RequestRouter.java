@@ -1,6 +1,7 @@
 package servlet.utils;
 
 
+import exception.BeanException;
 import modules.ArgumentsParser;
 import routeParser.RouteXML;
 import routeParser.om.Route;
@@ -27,6 +28,8 @@ public class RequestRouter {
     private ServletContext context;
     private static final String PAGE = "page";
     private static final String PAGE_404 = "404";
+    private static final String PAGE_UNAUTHORIZED = "unauthorized";
+
 
 
 
@@ -53,6 +56,12 @@ public class RequestRouter {
 
             if(!route.isRequiredConnection() || (route.isRequiredConnection() && SecurityService.isConnected(req))) {
                 data = process(route, req, resp, context);
+            }
+            else{
+                for(Route definedRoute : routes){
+                    if (PAGE_UNAUTHORIZED.equals(definedRoute.getId()))
+                        route = definedRoute;
+                }
             }
 
         } catch (ClassNotFoundException | NoSuchMethodException e) {
@@ -90,8 +99,12 @@ public class RequestRouter {
                     assert method != null;
                     data = method.invoke(service.newInstance(), getMethodParameters(req, method.getParameterTypes(), false).toArray());
                 }
-            } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
+            } catch (IllegalAccessException | InstantiationException e) {
                 e.printStackTrace();
+            } catch (InvocationTargetException e){
+                if (e.getCause() instanceof BeanException) {
+                    System.out.println("exception = " + e.getCause().toString());
+                }
             }
         }
 

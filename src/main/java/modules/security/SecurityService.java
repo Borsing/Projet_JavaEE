@@ -1,7 +1,7 @@
 package modules.security;
 
-import modules.organizer.OrganizerDAO;
-import modules.organizer.OrganizerEntity;
+import exception.BeanException;
+import exception.EnumException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 public class SecurityService {
 
     public static final String ATT_SESSION_USER = "session-user";
-
 
     public void logout(HttpServletRequest req){
 
@@ -26,14 +25,15 @@ public class SecurityService {
         return !(session == null || session.getAttribute(ATT_SESSION_USER) == null);
     }
 
-    public void login(HttpServletRequest req, String mail, String password) {
+    public void login(HttpServletRequest req, String mail, String password) throws BeanException {
 
-
+        // TODO Check the user is good and throw new Exception if not
+        System.out.println("Je log avec mail " + mail);
+        req.setAttribute("exception", EnumException.USER_ALREADY_EXISTS);
         HttpSession httpSession = req.getSession();
         httpSession.setAttribute(ATT_SESSION_USER, mail);
 
-
-        System.out.println("je me suis connecte avec " + mail);
+        throw new BeanException(EnumException.WRONG_LOGIN);
 
     }
 

@@ -14,7 +14,7 @@
         <jsp value="login"/>
     </route>
 
-    <route id="login-post" >
+    <route id="login-post">
         <method value="POST" />
         <url value="/login"/>
         <targeted-service value="modules.security.SecurityService" />
@@ -47,7 +47,7 @@
         <jsp value="login"/>
     </route>
 
-    <route id="unregister-post">
+    <route id="unregister-post" required-connection = "true">
         <method value="POST" />
         <targeted-service value="modules.organizer.OrganizerService" />
         <targeted-method value="unregister"/>
@@ -58,13 +58,13 @@
         <jsp value="events"/>
     </route>
 
-    <route id="change-password-get">
+    <route id="change-password-get" required-connection = "true">
         <method value="GET" />
         <url value="/change-password"/>
         <jsp value="change-password"/>
     </route>
 
-    <route id="change-password-post">
+    <route id="change-password-post" required-connection = "true">
         <method value="POST" />
         <targeted-service value="modules.organizer.OrganizerService" />
         <targeted-method value="changePassword"/>
@@ -76,7 +76,7 @@
         <jsp value="change-password"/>
     </route>
 
-    <route id="logout-post">
+    <route id="logout-post" required-connection = "true">
         <method value="POST" />
         <url value="/logout"/>
         <jsp value="events"/>
@@ -90,13 +90,13 @@
         <jsp value="events"/>
     </route>
 
-    <route id="create-event-get">
+    <route id="create-event-get" required-connection = "true">
         <method value="GET" />
         <url value="/create-event"/>
         <jsp value="create-event"/>
     </route>
 
-    <route id="create-event-post">
+    <route id="create-event-post" required-connection = "true">
         <method value="POST" />
         <targeted-service value="modules.event.EventService" />
         <targeted-method value="createEvent"/>
@@ -112,7 +112,7 @@
         <jsp value="events"/>
     </route>
 
-    <route id="delete-event-post">
+    <route id="delete-event-post" required-connection = "true">
         <method value="POST" />
         <targeted-service value="modules.event.EventService" />
         <targeted-method value="removeEvent"/>
@@ -123,7 +123,7 @@
         <jsp value="my-events"/>
     </route>
 
-    <route id="edit-event-get">
+    <route id="edit-event-get" required-connection = "true">
         <method value="GET" />
         <targeted-service value="modules.event.EventService" />
         <targeted-method value="getEventById"/>
@@ -134,7 +134,7 @@
         <jsp value="edit-event"/>
     </route>
 
-    <route id="edit-event-post">
+    <route id="edit-event-post" required-connection = "true">
         <method value="POST" />
         <targeted-service value="modules.event.EventService" />
         <targeted-method value="updateEvent"/>
@@ -168,7 +168,7 @@
         <jsp value="my-events"/>
     </route>
 
-    <route id="my-created-events-get">
+    <route id="my-created-events-get" required-connection = "true">
         <method value="GET" />
         <targeted-service value="modules.event.EventService" />
         <targeted-method value="findEventByOrganizer"/>
@@ -179,7 +179,7 @@
         <jsp value="my-created-events"/>
     </route>
 
-    <route id="update-profil-get">
+    <route id="update-profil-get" required-connection = "true">
         <method value="GET" />
         <targeted-service value="modules.organizer.OrganizerService" />
         <targeted-method value="findOrganizerById"/>
@@ -190,7 +190,7 @@
         <jsp value="update-profil"/>
     </route>
 
-    <route id="update-profil-post">
+    <route id="update-profil-post" required-connection = "true">
         <method value="POST" />
         <targeted-service value="modules.organizer.OrganizerService" />
         <targeted-method value="updateProfil"/>
@@ -226,7 +226,7 @@
         <jsp value="events"/>
     </route>
 
-    <route id="remove-participant-post">
+    <route id="remove-participant-post" required-connection = "true">
         <method value="POST" />
         <targeted-service value="modules.participant.ParticipantService" />
         <targeted-method value="removeParticipantFromEvent"/>
@@ -243,4 +243,13 @@
         <url value="/404"/>
         <jsp value="404"/>
     </route>
+
+    <route id="unauthorized">
+        <method value="GET" />
+        <url value="/unauthorized"/>
+        <jsp value="unauthorized"/>
+    </route>
+
+
+
 </routes>

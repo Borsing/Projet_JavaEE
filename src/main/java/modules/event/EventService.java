@@ -45,8 +45,6 @@ public class EventService {
 				  .setOperator(Field.Operator.LT)
 				  .setValueTarget(endDay);
 		
-		
-		
 		events.addAll( eventDao.findByCriteria(Field.BooleanOperator.AND,fieldBegin,fieldEnd)) ;
 		
 		//Date end during the day
