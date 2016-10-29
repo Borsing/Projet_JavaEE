@@ -35,12 +35,19 @@ public interface DAOInterface<T extends AbstractEntity> {
     default void delete(T entity){
     	EntityManager em =  DatabaseManager.getEntityManagerFactory().createEntityManager() ;
     	em.getTransaction().begin();
-    	
-    	em.remove(entity);
+
+		/*T entity = em.merge(obj);
+		entityManager.remove(obj);
+
+		em.remove(entity);
     	
     	em.getTransaction().commit();
-    	em.close();
-    }
+    	em.close();*/
+		T obj = em.merge(entity);
+		em.remove(obj);
+		em.getTransaction().commit();
+		em.close();
+	}
     
     default boolean update(T entity){
     	EntityManager em = DatabaseManager.getEntityManagerFactory().createEntityManager() ;

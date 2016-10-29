@@ -83,6 +83,8 @@ public class TestEventServices {
 		
 		es.removeEvent(1);
 
+		assertTrue(es.findEventByName("Event de Adrien").size()==0);
+
 	}
 	
 	@Test
@@ -99,11 +101,29 @@ public class TestEventServices {
 		ps.joinEvent(id, "toto", "vxc", "vdx", "vxc");
 		
 		es.removeEvent(id);
+
 		
 		assertTrue(es.findEventByName("yghjk").size()==0);
 		assertNull(ps.findById("toto"));
 	}
-	
+
+	@Test
+	public void testEventExistsAfterJoinAndQuit() {
+		ps.joinEvent(1, "participant1@gmail.com","nomP1","prenomP1","Company1") ;
+		assertTrue(ps.isParticipating( "participant1@gmail.com", 1));
+		ps.quitEvent(1, "participant1@gmail.com");
+		assertFalse(ps.isParticipating( "participant1@gmail.com", 1));
+		assertTrue(es.findEventByName("Event de Adrien").size() > 0);
+		assertTrue(es.findEventByName("Event de Adrien").get(0).getParticipants().size() == 0);
+	}
+
+	@Test
+	public void testOrganizerExistsRemoveEvent() {
+		es.removeEvent(1);
+		assertTrue(es.findEventByName("Event de Adrien").size() == 0);
+		assertTrue(os.exists("adrien.cadoret@gmail.com"));
+	}
+
 	@After
 	public void unset() {
 		databaseManager.closeEntityManagerFactory();

@@ -37,7 +37,7 @@ public class EventEntity extends AbstractEntity{
     @Column(name = "address",nullable = false)
     private String address;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "organizer_id", nullable = false)
     private OrganizerEntity organizer_id;
 
