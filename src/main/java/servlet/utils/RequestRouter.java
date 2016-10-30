@@ -27,6 +27,10 @@ public class RequestRouter {
     private static List<Route> routes = null;
     private ServletContext context;
     private static final String PAGE = "page";
+    private static final String SESSION = "session";
+    private static final String EXCEPTION = "exception";
+    private static final String DATA = "data";
+
     private static final String PAGE_404 = "404";
     private static final String PAGE_UNAUTHORIZED = "unauthorized";
 
@@ -50,6 +54,7 @@ public class RequestRouter {
 
         Route route = null;
         Object data = null;
+        BeanException beanException = null;
 
         try {
             route = getRouteOfURL(req.getPathInfo(),req.getParameterMap(),req.getMethod());
@@ -72,14 +77,17 @@ public class RequestRouter {
                     route = definedRoute;
             }
             e.printStackTrace();
+        } catch (BeanException e) {
+            beanException = e;
+            e.printStackTrace();
         }
 
         assert route != null;
-        redirect(route.getJsp(), SecurityService.getUserSession(req), data);
+        redirect(route.getJsp(), req.getSession(false), data, beanException);
 
     }
 
-    private Object process(Route route, HttpServletRequest req, HttpServletResponse resp, ServletContext context) throws ClassNotFoundException, NoSuchMethodException {
+    private Object process(Route route, HttpServletRequest req, HttpServletResponse resp, ServletContext context) throws ClassNotFoundException, NoSuchMethodException, BeanException {
         Object data = null;
         if(!("".equals(route.getTargetedService())) && !("".equals(route.getTargetedMethod()))) {
             Class<?> service = Class.forName(route.getTargetedService());
@@ -103,7 +111,8 @@ public class RequestRouter {
                 e.printStackTrace();
             } catch (InvocationTargetException e){
                 if (e.getCause() instanceof BeanException) {
-                    System.out.println("exception = " + e.getCause().toString());
+                    context.setAttribute(EXCEPTION, e.getCause());
+                    throw new BeanException(((BeanException) e.getCause()).getEnumException());
                 }
             }
         }
@@ -146,20 +155,21 @@ public class RequestRouter {
 
     }
 
-    private void redirect(String jsp, HttpSession session, Object data) {
-        System.out.println("jsp = [" + jsp + "]");
+    private void redirect(String jsp, HttpSession session, Object data, BeanException beanException) {
         if(session != null)
-            System.out.println("session = [" + session.getAttribute(SecurityService.ATT_SESSION_USER) + "]");
+            context.setAttribute(SESSION, session.getAttribute(SecurityService.ATT_SESSION_USER));
         else
-            System.out.println("session  =  null");
-        if(data != null)
-        System.out.println("data = [" + data + "]");
-        else{
-            System.out.println("data =  [pas de données]");
-        }
-        context.setAttribute("session", session);
-        context.setAttribute("data", data);
+            context.setAttribute(SESSION, null);
+        context.setAttribute(DATA, data);
         context.setAttribute(PAGE,jsp);
+        context.setAttribute(EXCEPTION, beanException);
+
+        System.out.println("jsp = " + context.getAttribute(PAGE));
+        System.out.println("session = " + context.getAttribute(SESSION));
+        System.out.println("exception = " + context.getAttribute(EXCEPTION));
+        System.out.println("data = " + context.getAttribute(DATA));
+
+
     }
 
     private Route getRouteOfURL(String pathInfo, Map parameters, String method) throws URISyntaxException{

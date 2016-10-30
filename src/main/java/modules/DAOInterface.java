@@ -138,7 +138,8 @@ public interface DAOInterface<T extends AbstractEntity> {
     	
     	// ? to check
     	List<T> all =  query.getResultList() ;
-    	return all ;
+
+		return all ;
     }
     
 

@@ -25,10 +25,10 @@ public class OrganizerService {
 		
 		Field<String> fieldPassword = new Field<>();
 		
-		fieldUser.setFieldTarget("password")
+		fieldPassword.setFieldTarget("password")
 			  	 .setOperator(Field.Operator.EQ)
 			  	 .setValueTarget(password);
-		
+
 		return orgaDao.findByCriteria(Field.BooleanOperator.AND, fieldUser, fieldPassword).size() ==  1 ;
 	}
 	

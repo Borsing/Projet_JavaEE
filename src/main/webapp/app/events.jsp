@@ -1,7 +1,15 @@
+<%@ page import="modules.organizer.OrganizerEntity" %>
 <!-- jspf template to display a list of events -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+
+
 
 <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--4-col"></div>
+
     <div class="mdl-cell mdl-cell--4-col">
         <div class="mdl-tabs__panel" id="events">
             <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">

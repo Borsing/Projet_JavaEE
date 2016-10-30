@@ -3,10 +3,8 @@ package testDAO;
 import static org.junit.Assert.*;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
 
 import javax.persistence.PersistenceException;
 
@@ -20,7 +18,6 @@ import modules.event.EventEntity;
 import modules.event.EventService;
 import modules.organizer.OrganizerEntity;
 import modules.organizer.OrganizerService;
-import modules.participant.ParticipantEntity;
 import modules.participant.ParticipantService;
 
 public class TestEventServices {
@@ -66,7 +63,7 @@ public class TestEventServices {
 		} catch (Exception e) {
 			fail();
 		}
-		assertEquals(os.findOrganizerById("azerty"),es.findEventByOrganizer("azerty").get(0).getOrganizer_id());
+		assertEquals(os.findOrganizerById("azerty"),es.findEventsByOrganizer("azerty").get(0).getOrganizer_id());
 
 		ps.joinEvent((int)es.findEventByName("yghjk").get(0).getId(), "toto", "vxc", "vdx", "vxc");
 		
@@ -95,7 +92,7 @@ public class TestEventServices {
 		} catch (Exception e) {
 			fail();
 		}
-		assertEquals(os.findOrganizerById("azerty"),es.findEventByOrganizer("azerty").get(0).getOrganizer_id());
+		assertEquals(os.findOrganizerById("azerty"),es.findEventsByOrganizer("azerty").get(0).getOrganizer_id());
 		int id = (int)es.findEventByName("yghjk").get(0).getId();
 		
 		ps.joinEvent(id, "toto", "vxc", "vdx", "vxc");
@@ -123,6 +120,19 @@ public class TestEventServices {
 		assertTrue(es.findEventByName("Event de Adrien").size() == 0);
 		assertTrue(os.exists("adrien.cadoret@gmail.com"));
 	}
+
+	@Test
+	public void checkLogin() {
+		os.register("azerty", "azdf", "afzsc", "fsd", "fsd");
+		try {
+			es.createEvent("yghjk", "xvcb", (Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/11:00"),(Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/18:00"), "qdvfdx", "azerty");
+		} catch (Exception e) {
+			fail();
+		}
+		assertTrue(os.checkLogin("azerty","azdf" ));
+
+	}
+
 
 	@After
 	public void unset() {

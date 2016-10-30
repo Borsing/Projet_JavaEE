@@ -117,7 +117,7 @@ public class EventService {
 	}
 	
 	//get Events By Creator
-	public List<EventEntity> findEventByOrganizer(String organizer_id){		
+	public List<EventEntity> findEventsByOrganizer(String organizer_id){
 		Field<OrganizerEntity> fieldName = new Field<>();
 		
 		OrganizerEntity organizer = orgaDao.findById(organizer_id);
@@ -166,6 +166,7 @@ public class EventService {
 		event.setName(name);
 		event.setDescription(description);
 		event.setBegin_date(begin_date);
+		event.setAddress(address);
 		event.setEnd_date(end_date);
 		event.setOrganizer_id(organizer);
 		

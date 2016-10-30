@@ -2,6 +2,7 @@ package modules.security;
 
 import exception.BeanException;
 import exception.EnumException;
+import modules.organizer.OrganizerService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,14 +27,20 @@ public class SecurityService {
     }
 
     public void login(HttpServletRequest req, String mail, String password) throws BeanException {
+        OrganizerService organizerService = new OrganizerService();
+        System.out.println("Login " + organizerService.checkLogin(mail,password));
 
         // TODO Check the user is good and throw new Exception if not
-        System.out.println("Je log avec mail " + mail);
-        req.setAttribute("exception", EnumException.USER_ALREADY_EXISTS);
-        HttpSession httpSession = req.getSession();
-        httpSession.setAttribute(ATT_SESSION_USER, mail);
+        if(!organizerService.checkLogin(mail,password)){
+            System.out.println("NOT ");
+            throw new BeanException(EnumException.WRONG_LOGIN);
+        }
+        else{
+            System.out.println("OUI" + mail);
 
-        throw new BeanException(EnumException.WRONG_LOGIN);
+            HttpSession httpSession = req.getSession(true);
+            httpSession.setAttribute(ATT_SESSION_USER, organizerService.findOrganizerById(mail));
+        }
 
     }
 

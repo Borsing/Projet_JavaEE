@@ -11,7 +11,7 @@
         <c:import url="../app/login.jspf"/>
     </c:when>
     <c:when test="${page=='events'}">
-        <c:import url="../app/events.jspf"/>
+        <c:import url="../app/events.jsp"/>
     </c:when>
     <c:when test="${page=='my-events'}">
         <c:import url="../app/my-events.jspf"/>
