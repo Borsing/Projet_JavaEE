@@ -28,15 +28,12 @@ public class SecurityService {
 
     public void login(HttpServletRequest req, String mail, String password) throws BeanException {
         OrganizerService organizerService = new OrganizerService();
-        System.out.println("Login " + organizerService.checkLogin(mail,password));
 
         // TODO Check the user is good and throw new Exception if not
         if(!organizerService.checkLogin(mail,password)){
-            System.out.println("NOT ");
             throw new BeanException(EnumException.WRONG_LOGIN);
         }
         else{
-            System.out.println("OUI" + mail);
 
             HttpSession httpSession = req.getSession(true);
             httpSession.setAttribute(ATT_SESSION_USER, organizerService.findOrganizerById(mail));

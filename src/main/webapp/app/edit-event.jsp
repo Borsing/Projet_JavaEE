@@ -4,7 +4,7 @@
 <html>
 
 <div>
-    <h1>${data.name}
+    <h1>${session.mail}
     </h1>
 
 </div>
