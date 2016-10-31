@@ -1,5 +1,7 @@
 package modules.event;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -159,35 +161,61 @@ public class EventService {
 		return eventDao.findByCriteria(Field.BooleanOperator.AND,fieldOrga,fieldEventId).size() == 1;
 	}
 	
-	public void updateEvent(int id, String name, String description, Date begin_date, Date end_date, String address, String organizer_id) throws BeanException // can not change id. The organizerId field is the stored value in the session
+	public void updateEvent(int id, String name, String description, Date begin_date, String begin_time, Date end_date, String end_time, String address, String organizer_id) throws BeanException // can not change id. The organizerId field is the stored value in the session
 	{
-		EventEntity event = eventDao.findById(id);
+		try {
+			EventEntity event = eventDao.findById(id);
+
+			OrganizerEntity organizer = orgaDao.findById(organizer_id);
 		
-		OrganizerEntity organizer = orgaDao.findById(organizer_id);
-		
-		event.setName(name);
-		event.setDescription(description);
-		event.setBegin_date(begin_date);
-		event.setAddress(address);
-		event.setEnd_date(end_date);
-		event.setOrganizer_id(organizer);
-		
-		boolean ok = eventDao.update(event);
-		if(!ok)
-			throw new BeanException(EnumException.SOMETHING_WRONG);
+			event.setName(name);
+			event.setDescription(description);
+			event.setAddress(address);
+			event.setEnd_date(fusionDateAndTime(begin_date,begin_time));
+			event.setEnd_date(fusionDateAndTime(end_date,end_time));
+			event.setOrganizer_id(organizer);
+
+			boolean ok = eventDao.update(event);
+			if(!ok)
+				throw new BeanException(EnumException.SOMETHING_WRONG);
+
+			event.setBegin_date(fusionDateAndTime(begin_date,begin_time));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void removeEvent(int eventId)	{
 		eventDao.delete(eventDao.findById(eventId));
 	}
 	
-	public void createEvent(String name, String description, Date begin_date, Date end_date, String address, String organizer_id)	{
+	public void createEvent(String name, String description, Date begin_date, String begin_time, Date end_date, String end_time,String address, String organizer_id) throws BeanException {
 
-		OrganizerEntity organizer = orgaDao.findById(organizer_id);
-		EventEntity event = new EventEntity(name,description,begin_date,end_date,address,organizer,new ArrayList<>());
-		eventDao.create(event);
+		try {
+			
+			OrganizerEntity organizer = orgaDao.findById(organizer_id);
+			EventEntity event = new EventEntity(name,description,fusionDateAndTime(begin_date, begin_time),fusionDateAndTime(end_date, end_time),address,organizer,new ArrayList<>());
+			eventDao.create(event);
+
+		} catch (ParseException e) {
+			throw new BeanException(EnumException.SOMETHING_WRONG);
+		}
 	}
-	
-	
-	
+
+	private Date fusionDateAndTime(Date begin_date, String begin_time) throws ParseException {
+
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+		Calendar beginTime = Calendar.getInstance();
+		beginTime.setTime(timeFormat.parse(begin_time));
+
+		Calendar beginDate = Calendar.getInstance();
+		beginDate.setTime(begin_date);
+		beginDate.set(Calendar.HOUR_OF_DAY, beginTime.get(Calendar.HOUR_OF_DAY));
+		beginDate.set(Calendar.MINUTE, beginTime.get(Calendar.MINUTE));
+
+		return beginDate.getTime();
+	}
+
+
 }

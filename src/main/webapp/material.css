@@ -5053,8 +5053,10 @@ input.mdl-button[type="submit"] {
     padding: 0 18px 12px 18px;
     text-align: right; }
     .mdl-data-table td:first-of-type, .mdl-data-table th:first-of-type {
+        text-align:left;
       padding-left: 24px; }
     .mdl-data-table td:last-of-type, .mdl-data-table th:last-of-type {
+        text-align:left;
       padding-right: 24px; }
   .mdl-data-table td {
     position: relative;

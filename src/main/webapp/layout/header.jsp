@@ -3,7 +3,6 @@
 
 <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title">EventManager </span>
         <nav class="mdl-navigation mdl-layout--large-screen-only">
             <a class="mdl-navigation__link" href="events">
                 <i class="material-icons" >event</i>

@@ -42,7 +42,6 @@ public class Route {
 
     public void setTargetedService(String targetedService) {
         this.targetedService = targetedService;
-        System.out.println("Je set le service avec: " + targetedService );
     }
 
     public String getId() {

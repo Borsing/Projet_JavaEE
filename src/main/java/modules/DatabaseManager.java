@@ -1,8 +1,10 @@
 package modules;
 
+import exception.BeanException;
 import modules.event.EventEntity;
 import modules.organizer.OrganizerEntity;
 import modules.participant.ParticipantEntity;
+import modules.participant.ParticipantService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -63,7 +65,6 @@ public class DatabaseManager {
             ParticipantEntity participant2 = new ParticipantEntity("participant2@gmail.com","nomP2","prenomP2","Company2",null);
             ParticipantEntity participant3 = new ParticipantEntity("participant3@gmail.com","nomP3","prenomP3","Company3",null);
 
-
             entities.add(organizer1);
             entities.add(organizer2);
             entities.add(organizer3);
@@ -78,6 +79,7 @@ public class DatabaseManager {
 
             entityManager.getTransaction().commit();
             entityManager.close();
+
         } catch (PersistenceException e){
             throw e;
         }

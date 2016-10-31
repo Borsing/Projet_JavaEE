@@ -59,10 +59,10 @@
         <jsp value="events"/>
     </route>
 
-    <route id="change-password-get" required-connection = "true">
+    <route id="change-password-get">
         <method value="GET" />
         <url value="/change-password"/>
-        <jsp value="change-password"/>
+        <jsp value="forgot-password"/>
     </route>
 
     <route id="change-password-post" required-connection = "true">
@@ -107,9 +107,11 @@
             <parameter value="1_name" />
             <parameter value="2_description" />
             <parameter value="3_begin_date" />
-            <parameter value="4_end_date" />
-            <parameter value="5_address" />
-            <parameter value="6_organizer_id" />
+            <parameter value="4_begin_time" />
+            <parameter value="5_end_date" />
+            <parameter value="6_end_time" />
+            <parameter value="7_address" />
+            <parameter value="8_organizer_id" />
         </parameters>
         <url value="/create-event"/>
         <jsp value="events"/>
@@ -125,6 +127,19 @@
         <url value="/remove-event"/>
         <jsp value="my-created-events"/>
     </route>
+
+    <route id="delete-participant-post" required-connection = "true">
+        <method value="POST" />
+        <targeted-service value="modules.participant.ParticipantService" />
+        <targeted-method value="quitEvent"/>
+        <parameters>
+            <parameter value="1_event_id" />
+            <parameter value="2_email" />
+        </parameters>
+        <url value="/remove-participant"/>
+        <jsp value="my-created-events"/>
+    </route>
+
 
     <route id="detail-event-get">
         <method value="GET" />
@@ -157,12 +172,14 @@
             <parameter value="2_name" />
             <parameter value="3_description" />
             <parameter value="4_begin_date" />
-            <parameter value="5_end_date" />
-            <parameter value="6_address" />
-            <parameter value="7_organizer_id" />
+            <parameter value="5_begin_time" />
+            <parameter value="6_end_date" />
+            <parameter value="7_end_time" />
+            <parameter value="8_address" />
+            <parameter value="9_organizer_id" />
         </parameters>
         <url value="/edit-event"/>
-        <jsp value="edit-event"/>
+        <jsp value="my-created-events"/>
     </route>
 
     <route id="my-events-get">
@@ -244,8 +261,8 @@
         <jsp value="events"/>
     </route>
 
-    <route id="remove-participant-post" required-connection = "true">
-        <method value="POST" />
+    <route id="remove-participant-get" required-connection = "true">
+        <method value="GET" />
         <targeted-service value="modules.participant.ParticipantService" />
         <targeted-method value="quitEvent"/>
         <parameters>

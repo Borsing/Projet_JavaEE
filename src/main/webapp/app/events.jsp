@@ -46,11 +46,11 @@
                 <tr>
                     <td><i class="material-icons" >event</i></td>
                     <td class="mdl-data-table__cell--non-numeric">${item.name}</td>
-                    <td class="mdl-data-table__cell--non-numeric"><fmt:formatDate type="both"
-                                                                                  dateStyle="short" timeStyle="short"
+                    <td class="mdl-data-table__cell--non-numeric"><fmt:formatDate pattern="dd/MM/yyyy HH:mm"
                                                                                   value="${item.begin_date}" /></td>
-                    <td class="mdl-data-table__cell--non-numeric">${item.end_date}</td>
-                    <td class="mdl-data-table__cell--non-numeric">${item.address}</td>
+                    <td class="mdl-data-table__cell--non-numeric"><fmt:formatDate pattern="dd/MM/yyyy HH:mm"
+                                                                                  value="${item.end_date}" /></td>
+               <td class="mdl-data-table__cell--non-numeric">${item.address}</td>
                     <td class="mdl-data-table__cell--non-numeric">
                         <button id="demo-menu-lower-left-${item.id}"
                                 class="mdl-button mdl-js-button mdl-button--icon"

@@ -55,7 +55,6 @@ public class RequestRouter {
         Route route = null;
         Object data = null;
         BeanException beanException = null;
-        System.out.println("req.getParameterMap().toString() = " + req.getParameterMap().toString());
 
         try {
             route = getRouteOfURL(req.getPathInfo(),req.getParameterMap(),req.getMethod());
@@ -80,7 +79,6 @@ public class RequestRouter {
         } catch (BeanException e) {
             beanException = e;
             redirect(route.getRedirectedJsp(), req.getSession(false), data, beanException);
-            System.out.println("redirected to = " + route.getRedirectedJsp());
             e.printStackTrace();
             return;
         }
@@ -139,20 +137,14 @@ public class RequestRouter {
             String[] parts = entry.getKey().toString().split("_");
             Integer index = Integer.parseInt(parts[0]);
             sortingValues.put(index, entry.getValue()[0]);
-            System.out.println("index = " + index);
-            System.out.println("entry.getValue()[0] = " + entry.getValue()[0]);
         }
 
         LinkedList<Object> sortingValuesToArray = new LinkedList<>(sortingValues.values());
-        System.out.println("sortingValuesToArray without reverse= " + sortingValuesToArray);
-
-        //Collections.reverse(sortingValuesToArray);
 
         if(includeRequest){
             sortingValuesToArray.addFirst(request);
         }
 
-        System.out.println("sortingValuesToArray = " + sortingValuesToArray);
 
         for(int i=0; i < parameterTypes.length ;i++){
             try {
@@ -161,10 +153,6 @@ public class RequestRouter {
                 e.printStackTrace();
             }
         }
-
-        //Collections.reverse(values);
-
-        System.out.println("values = " + values);
 
         return  values;
 

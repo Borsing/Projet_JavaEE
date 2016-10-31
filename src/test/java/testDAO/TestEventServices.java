@@ -45,7 +45,7 @@ public class TestEventServices {
 		
 		organizer1 = new OrganizerEntity("adrien.cadoret@gmail.com", "adrien", "Cadoret", "Adrien", "VIF", null);
 		
-		event1 = new EventEntity("Event de Adrien", "C'est l'événement d'Adrien", (Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/11:00"),(Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/18:00"), "Adresse d'Adrien", organizer1, new LinkedList<>());
+		event1 = new EventEntity("Event de Adrien", "C'est l'événement d'Adrien", (Date)ArgumentsParser.convertTo(Date.class, "14-05-2016"),(Date)ArgumentsParser.convertTo(Date.class, "14-05-2016"), "Adresse d'Adrien", organizer1, new LinkedList<>());
 		event1.setId(1);
 	}
 	
@@ -81,7 +81,7 @@ public class TestEventServices {
 		expected.setAddress("nouvelle adresse");
 		try {
 			try {
-				es.updateEvent((int)event1.getId(), "Nouveau nom", "C'est l'événement d'Adrien", (Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/11:00"),(Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/18:00"), "nouvelle adresse", (String) organizer1.getId());
+				es.updateEvent((int)event1.getId(), "Nouveau nom", "C'est l'événement d'Adrien", (Date)ArgumentsParser.convertTo(Date.class, "14-05-2016"),"00:00",(Date)ArgumentsParser.convertTo(Date.class, "14-05-2016"), "00:00","nouvelle adresse", (String) organizer1.getId());
 			} catch (BeanException e) {
 				fail();
 			}
@@ -113,7 +113,7 @@ public class TestEventServices {
 			fail();
 		}
 		try {
-			es.createEvent("yghjk", "xvcb", (Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/11:00"),(Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/18:00"), "qdvfdx", "azerty");
+			es.createEvent("yghjk", "xvcb", (Date)ArgumentsParser.convertTo(Date.class, "14-05-2016"),"00:00",(Date)ArgumentsParser.convertTo(Date.class, "14-05-2016"), "00:00", "qdvfdx", "azerty");
 		} catch (Exception e) {
 			fail();
 		}
@@ -156,7 +156,7 @@ public class TestEventServices {
 			fail();
 		}
 		try {
-			es.createEvent("yghjk", "xvcb", (Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/11:00"),(Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/18:00"), "qdvfdx", "azerty");
+			es.createEvent("yghjk", "xvcb", (Date)ArgumentsParser.convertTo(Date.class, "14-05-2016"),"00:00",(Date)ArgumentsParser.convertTo(Date.class, "14-05-2016"),"00:00", "qdvfdx", "azerty");
 		} catch (Exception e) {
 			fail();
 		}
@@ -199,7 +199,7 @@ public class TestEventServices {
 			fail();
 		}
 		try {
-			es.createEvent("yghjk", "xvcb", (Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/11:00"),(Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/18:00"), "qdvfdx", "azerty");
+			es.createEvent("yghjk", "xvcb", (Date)ArgumentsParser.convertTo(Date.class, "14-05-2016"),"00:00",(Date)ArgumentsParser.convertTo(Date.class, "14-05-2016"),"00:00", "qdvfdx", "azerty");
 		} catch (Exception e) {
 			fail();
 		}

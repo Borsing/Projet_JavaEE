@@ -39,10 +39,10 @@ public class TestOrganizerServices {
 		os = new OrganizerService();
 		databaseManager.openEntityManagerFactory();
 		databaseManager.populate();
-		
+
 		organizer1 = new OrganizerEntity("adrien.cadoret@gmail.com", "adrien", "Cadoret", "Adrien", "VIF", null);
-		
-		event1 = new EventEntity("Event de Adrien", "C'est l'événement d'Adrien", (Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/11:00"),(Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/18:00"), "Adresse d'Adrien", organizer1, new LinkedList<>());
+
+		event1 = new EventEntity("Event de Adrien", "C'est l'événement d'Adrien", (Date)ArgumentsParser.convertTo(Date.class, "14-05-2016"),(Date)ArgumentsParser.convertTo(Date.class, "14-05-2016"), "Adresse d'Adrien", organizer1, new LinkedList<>());
 		event1.setId(1);
 	}
 
