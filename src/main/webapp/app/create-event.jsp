@@ -1,6 +1,20 @@
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <!-- jspf showing how to create an event | Can only appear while connected. -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+
+<%
+    Date dNow = new Date();
+    SimpleDateFormat ft_date =
+            new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat ft_time =
+            new SimpleDateFormat("hh:mm");
+    String now_date = ft_date.format(dNow);
+    String now_time = ft_time.format(dNow);
+%>
+
 <form action="create-event" method="post">
 
     <div class="mdl-grid">
@@ -22,12 +36,21 @@
             </div><br>
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="date" id="begin_date" name="begin_date" required/>
+                <input class="mdl-textfield__input" type="date" id="begin_date" name="begin_date" required value="<%=now_date%>" />
                 <label class="mdl-textfield__label" for="begin_date">Date de début</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="datetime" id="end_date" name="end_date" required />
+                <input class="mdl-textfield__input" type="time" id="begin_time" name="begin_time" required value="<%=now_time%>"/>
+                <label class="mdl-textfield__label" for="begin_time">Heure de début</label>
+            </div><br>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="date" id="end_date" name="end_date" required value="<%=now_date%>"/>
                 <label class="mdl-textfield__label" for="end_date">Date de fin</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="time" id="end_time" name="end_time" required value="<%=now_time%>"/>
+                <label class="mdl-textfield__label" for="end_time">Heure de fin</label>
             </div><br>
 
             <input type="hidden" name="organizer_id" value="${session.mail}"/>
@@ -41,18 +64,3 @@
 </form>
 
 </html>
-
-<!--
-<dialog class="mdl-dialog" id="modal-create-event">
-    <script>
-        var dialogCreateEvent = document.querySelector('#modal-create-event');
-        var showDialogButtonCreateEvent = document.querySelector('#show-dialog-create-event');
-        if (! dialogCreateEvent.showModal) {
-            dialogPolyfill.registerDialog(dialogLogin);
-        }
-        showDialogButtonCreateEvent.addEventListener('click', function() {
-            dialogCreateEvent.showModal();
-        });
-    </script>
-</dialog>
--->

@@ -48,6 +48,9 @@
     <c:when test="${page=='my-created-events'}">
         <jsp:include page="${pageContext.servletContext.contextPath}/app/my-created-events.jsp"/>
     </c:when>
+    <c:when test="${page=='forgot-password'}">
+        <jsp:include page="${pageContext.servletContext.contextPath}/app/forgot-password.jsp"/>
+    </c:when>
 </c:choose>
 
 </html>

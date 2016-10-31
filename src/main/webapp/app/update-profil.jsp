@@ -41,6 +41,7 @@
 
 <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--6-col  mdl-cell--3-offset">
+        <h3>Désinscription</h3><br>
         <form action="unregister" method="post">
             <input type="hidden" name="email" value="${session.mail}"/>
             <input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"

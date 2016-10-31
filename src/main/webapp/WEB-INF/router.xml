@@ -59,10 +59,10 @@
         <jsp value="events"/>
     </route>
 
-    <route id="change-password-get" required-connection = "true">
+    <route id="change-password-get">
         <method value="GET" />
         <url value="/change-password"/>
-        <jsp value="change-password"/>
+        <jsp value="forgot-password"/>
     </route>
 
     <route id="change-password-post" required-connection = "true">
@@ -244,8 +244,8 @@
         <jsp value="events"/>
     </route>
 
-    <route id="remove-participant-post" required-connection = "true">
-        <method value="POST" />
+    <route id="remove-participant-get" required-connection = "true">
+        <method value="GET" />
         <targeted-service value="modules.participant.ParticipantService" />
         <targeted-method value="quitEvent"/>
         <parameters>

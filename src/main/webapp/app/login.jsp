@@ -20,6 +20,8 @@
                 <label class="mdl-textfield__label" for="password">Mot de passe</label>
             </div><br>
 
+            <a style="font-size: xx-small" href="change-password">Mot de passe oublié</a><br>
+
             <input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit"
                    value="Se connecter" />
         </div>

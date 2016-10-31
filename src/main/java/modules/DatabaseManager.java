@@ -1,8 +1,10 @@
 package modules;
 
+import exception.BeanException;
 import modules.event.EventEntity;
 import modules.organizer.OrganizerEntity;
 import modules.participant.ParticipantEntity;
+import modules.participant.ParticipantService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -47,6 +49,7 @@ public class DatabaseManager {
         try {
             EntityManager entityManager = getEntityManagerFactory().createEntityManager();
 
+            ParticipantService participant_service = new ParticipantService();
             entityManager.getTransaction().begin();
 
             Collection<AbstractEntity> entities = new ArrayList<>();
@@ -63,7 +66,6 @@ public class DatabaseManager {
             ParticipantEntity participant2 = new ParticipantEntity("participant2@gmail.com","nomP2","prenomP2","Company2",null);
             ParticipantEntity participant3 = new ParticipantEntity("participant3@gmail.com","nomP3","prenomP3","Company3",null);
 
-
             entities.add(organizer1);
             entities.add(organizer2);
             entities.add(organizer3);
@@ -78,8 +80,13 @@ public class DatabaseManager {
 
             entityManager.getTransaction().commit();
             entityManager.close();
+
+            participant_service.joinEvent(1, participant1.getMail(), participant1.getLast_name(), participant1.getFirst_name(), participant1.getCompany());
+
         } catch (PersistenceException e){
             throw e;
+        } catch (BeanException e) {
+            e.printStackTrace();
         }
 
 
