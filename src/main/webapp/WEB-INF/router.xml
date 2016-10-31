@@ -20,8 +20,8 @@
         <targeted-service value="modules.security.SecurityService" />
         <targeted-method value="login"/>
         <parameters>
-            <parameter value="email" />
-            <parameter value="password" />
+            <parameter value="1_email" />
+            <parameter value="2_password" />
         </parameters>
         <jsp value="events"/>
         <redirected-jsp value="login"/>
@@ -39,11 +39,11 @@
         <targeted-service value="modules.organizer.OrganizerService" />
         <targeted-method value="register"/>
         <parameters>
-            <parameter value="email" />
-            <parameter value="password" />
-            <parameter value="last_name" />
-            <parameter value="first_name" />
-            <parameter value="company" />
+            <parameter value="1_email" />
+            <parameter value="2_password" />
+            <parameter value="3_last_name" />
+            <parameter value="4_first_name" />
+            <parameter value="5_company" />
         </parameters>
         <jsp value="login"/>
     </route>
@@ -53,7 +53,7 @@
         <targeted-service value="modules.organizer.OrganizerService" />
         <targeted-method value="unregister"/>
         <parameters>
-            <parameter value="email" />
+            <parameter value="1_email" />
         </parameters>
         <url value="/unregister"/>
         <jsp value="events"/>
@@ -70,8 +70,8 @@
         <targeted-service value="modules.organizer.OrganizerService" />
         <targeted-method value="changePassword"/>
         <parameters>
-            <parameter value="email" />
-            <parameter value="password" />
+            <parameter value="1_email" />
+            <parameter value="2_password" />
         </parameters>
         <url value="/change-password"/>
         <jsp value="change-password"/>
@@ -104,14 +104,14 @@
         <targeted-service value="modules.event.EventService" />
         <targeted-method value="createEvent"/>
         <parameters>
-            <parameter value="name" />
-            <parameter value="description" />
-            <parameter value="begin_date" />
-            <parameter value="end_date" />
-            <parameter value="address" />
-            <parameter value="organizer_id" />
+            <parameter value="1_name" />
+            <parameter value="2_description" />
+            <parameter value="3_begin_date" />
+            <parameter value="4_end_date" />
+            <parameter value="5_address" />
+            <parameter value="6_organizer_id" />
         </parameters>
-        <url value="/events"/>
+        <url value="/create-event"/>
         <jsp value="events"/>
     </route>
 
@@ -120,7 +120,7 @@
         <targeted-service value="modules.event.EventService" />
         <targeted-method value="removeEvent"/>
         <parameters>
-            <parameter value="id" />
+            <parameter value="1_id" />
         </parameters>
         <url value="/remove-event"/>
         <jsp value="my-events"/>
@@ -131,7 +131,7 @@
         <targeted-service value="modules.event.EventService" />
         <targeted-method value="findEventById"/>
         <parameters>
-            <parameter value="id" />
+            <parameter value="1_id" />
         </parameters>
         <url value="/detail-event"/>
         <jsp value="detail-event"/>
@@ -142,7 +142,7 @@
         <targeted-service value="modules.event.EventService" />
         <targeted-method value="findEventById"/>
         <parameters>
-            <parameter value="id" />
+            <parameter value="1_id" />
         </parameters>
         <url value="/edit-event"/>
         <jsp value="edit-event"/>
@@ -153,13 +153,13 @@
         <targeted-service value="modules.event.EventService" />
         <targeted-method value="updateEvent"/>
         <parameters>
-            <parameter value="id" />
-            <parameter value="name" />
-            <parameter value="description" />
-            <parameter value="begin_date" />
-            <parameter value="end_date" />
-            <parameter value="address" />
-            <parameter value="organizer_id" />
+            <parameter value="1_id" />
+            <parameter value="2_name" />
+            <parameter value="3_description" />
+            <parameter value="4_begin_date" />
+            <parameter value="5_end_date" />
+            <parameter value="6_address" />
+            <parameter value="7_organizer_id" />
         </parameters>
         <url value="/edit-event"/>
         <jsp value="edit-event"/>
@@ -176,7 +176,7 @@
         <targeted-service value="modules.event.EventService" />
         <targeted-method value="findEventsByParticipant"/>
         <parameters>
-            <parameter value="email"/>
+            <parameter value="1_email"/>
         </parameters>
         <url value="/my-events"/>
         <jsp value="my-events"/>
@@ -187,7 +187,7 @@
         <targeted-service value="modules.event.EventService" />
         <targeted-method value="findEventsByOrganizer"/>
         <parameters>
-            <parameter value="email"/>
+            <parameter value="1_email"/>
         </parameters>
         <url value="/my-created-events"/>
         <jsp value="my-created-events"/>
@@ -198,7 +198,7 @@
         <targeted-service value="modules.organizer.OrganizerService" />
         <targeted-method value="findOrganizerById"/>
         <parameters>
-            <parameter value="email"/>
+            <parameter value="1_email"/>
         </parameters>
         <url value="/update-profil"/>
         <jsp value="update-profil"/>
@@ -209,12 +209,12 @@
         <targeted-service value="modules.organizer.OrganizerService" />
         <targeted-method value="updateProfil"/>
         <parameters>
-            <parameter value="last_email" />
-            <parameter value="new_email" />
-            <parameter value="password" />
-            <parameter value="last_name" />
-            <parameter value="first_name" />
-            <parameter value="company" />
+            <parameter value="1_last_email" />
+            <parameter value="2_new_email" />
+            <parameter value="3_password" />
+            <parameter value="4_last_name" />
+            <parameter value="5_first_name" />
+            <parameter value="6_company" />
         </parameters>
         <url value="/update-profil"/>
         <jsp value="update-profil"/>
@@ -223,7 +223,7 @@
     <route id="join-event-get">
         <method value="GET" />
         <parameters>
-            <parameter value="id" />
+            <parameter value="1_id" />
         </parameters>
         <url value="/join-event"/>
         <jsp value="join-event"/>
@@ -234,11 +234,11 @@
         <targeted-service value="modules.participant.ParticipantService" />
         <targeted-method value="joinEvent"/>
         <parameters>
-            <parameter value="event_id" />
-            <parameter value="email" />
-            <parameter value="last_name" />
-            <parameter value="first_name" />
-            <parameter value="company" />
+            <parameter value="1_event_id" />
+            <parameter value="2_email" />
+            <parameter value="3_last_name" />
+            <parameter value="4_first_name" />
+            <parameter value="5_company" />
         </parameters>
         <url value="/join-event"/>
         <jsp value="events"/>
@@ -249,8 +249,8 @@
         <targeted-service value="modules.participant.ParticipantService" />
         <targeted-method value="quitEvent"/>
         <parameters>
-            <parameter value="event_id" />
-            <parameter value="email" />
+            <parameter value="1_event_id" />
+            <parameter value="2_email" />
         </parameters>
         <url value="/remove-participant"/>
         <jsp value="events-created"/>

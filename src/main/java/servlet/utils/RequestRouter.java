@@ -130,12 +130,22 @@ public class RequestRouter {
         System.out.println("values.toString() = " + Arrays.toString(parameterTypes));
         
         List<Object> mapValues = new ArrayList<>();
+        TreeMap<Integer,String> sortingValues = new TreeMap<>(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1.compareTo(o2);
+            }
+        });
 
-        System.out.println("request.getParameterMap() = " + request.getParameterMap().toString());
+        System.out.println("request.getParameterMap() not sorting = " + request.getParameterMap().toString());
+        System.out.println("request.getParameterMap()  sorting = " + sortingValues.toString());
 
         for (Map.Entry<String, String[]> entry : request.getParameterMap().entrySet())
         {
-            mapValues.add(entry.getValue()[0]);
+            String[] parts = entry.getKey().split("_");
+            Integer index = Integer.getInteger(parts[0]);
+
+            sortingValues.put(index, entry.getValue()[0]);
         }
 
         if(includeRequest){

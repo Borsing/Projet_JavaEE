@@ -9,17 +9,17 @@
             <h3>Editer l'event</h3><br>
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="name" name="name" required value="${data.name}"/>
-                <label class="mdl-textfield__label" for="name">Nom de l'event</label>
+                <input class="mdl-textfield__input" type="text" id="2_name" name="1_name" required value="${data.name}"/>
+                <label class="mdl-textfield__label" for="2_name">Nom de l'event</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="address" name="address" required value="${data.address}"/>
+                <input class="mdl-textfield__input" type="text" id="address" name="2_address" required value="${data.address}"/>
                 <label class="mdl-textfield__label" for="address">Lieu</label>
             </div><br>
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="description" name="description" required value="${data.description}"/>
-                <label class="mdl-textfield__label" for="description">Description</label>
+                <input class="mdl-textfield__input" type="text" id="3_description" name="3_description" required value="${data.description}"/>
+                <label class="mdl-textfield__label" for="3_description">Description</label>
             </div><br>
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -31,8 +31,8 @@
                 <label class="mdl-textfield__label" for="end_date">Date de fin</label>
             </div><br>
 
-            <input type="hidden" name="id" value="${data.id}"/>
-            <input type="hidden" name="organizer_id" value="${session.mail}"/>
+            <input type="hidden" name="1_id" value="${data.id}"/>
+            <input type="hidden" name="7_organizer_id" value="${session.mail}"/>
 
             <input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit"
                    value="Editer l'event" /><br>
