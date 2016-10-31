@@ -26,7 +26,7 @@
                 <label class="mdl-textfield__label" for="begin_date">Date de début</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="date" id="end_date" name="end_date" required />
+                <input class="mdl-textfield__input" type="datetime" id="end_date" name="end_date" required />
                 <label class="mdl-textfield__label" for="end_date">Date de fin</label>
             </div><br>
 

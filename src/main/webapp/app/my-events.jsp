@@ -8,25 +8,28 @@
         <h3>Mes évènements</h3><br>
 
         <form action="my-events" method="post">
-            <div class="mdl-textfield mdl-js-textfield">
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label">
                 <label class="mdl-button mdl-js-button mdl-button--icon" for="email">
                     <i class="material-icons">search</i>
                 </label>
-                <c:choose>
-                    <c:when test="${session==null}">
-                        <input class="mdl-textfield__input" type="email" id="email" name="email" required>
-                    </c:when>
-                    <c:otherwise>
-                        <input class="mdl-textfield__input" type="email" id="email" name="email" value="${session.mail}" required>
-                    </c:otherwise>
-                </c:choose>
-                <label class="mdl-textfield__label" for="email">Rechercher via l'email</label>
+                <div class="mdl-textfield__expandable-holder">
+                    <c:choose>
+                        <c:when test="${session==null}">
+                            <input class="mdl-textfield__input" type="email" id="email" name="email" required>
+                        </c:when>
+                        <c:otherwise>
+                            <input class="mdl-textfield__input" type="email" id="email" name="email" value="${session.mail}" required>
+                        </c:otherwise>
+                    </c:choose>
+                    <label class="mdl-textfield__label" for="email">Rechercher via l'email</label>
+                </div>
             </div>
         </form><br>
 
         <c:choose>
-            <c:when test="${data==null}">
-                <h3>Aucun évènement à afficher.</h3>
+            <c:when test="${data==null || empty data}">
+                <h5 style="color: darkred">Aucun évènement à afficher.</h5>
             </c:when>
             <c:otherwise>
                     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
