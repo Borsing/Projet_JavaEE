@@ -7,7 +7,7 @@
         <nav class="mdl-navigation mdl-layout--large-screen-only">
             <a class="mdl-navigation__link" href="events">
                 <i class="material-icons" >event</i>
-                Evenements
+                Evènements
             </a>
         </nav>
         <nav class="mdl-navigation mdl-layout--large-screen-only">
@@ -34,20 +34,20 @@
             </c:when>
             <c:otherwise>
                 <nav class="mdl-navigation mdl-layout--large-screen-only">
-                    <a class="mdl-navigation__link" href="my-created-events?email=${session.mail}">
+                    <a class="mdl-navigation__link" href="my-created-events?1_email=${session.mail}">
                         <i class="material-icons" >archive</i>
-                        Mes creations
+                        Mes créations
                     </a>
                 </nav>
                 <nav class="mdl-navigation mdl-layout--large-screen-only">
                     <a class="mdl-navigation__link" href="create-event">
                         <i class="material-icons" >add</i>
-                        Creer un event
+                        Créer un évènement
                     </a>
                 </nav>
                 <div class="mdl-layout-spacer"></div>
                 <nav class="mdl-navigation mdl-layout--large-screen-only">
-                    <a class="mdl-navigation__link" href="update-profil?email=${session.mail}">
+                    <a class="mdl-navigation__link" href="update-profil?1_email=${session.mail}">
                         <i class="material-icons" >settings</i>
                         Mon compte
                     </a>
@@ -55,7 +55,7 @@
                 <nav class="mdl-navigation mdl-layout--large-screen-only">
                     <a class="mdl-navigation__link" href="logout">
                         <i class="material-icons" >input</i>
-                        Se deconnecter
+                        Se déconnecter
                     </a>
                 </nav>
             </c:otherwise>

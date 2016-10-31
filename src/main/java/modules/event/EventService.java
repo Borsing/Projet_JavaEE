@@ -183,11 +183,8 @@ public class EventService {
 	
 	public void createEvent(String name, String description, Date begin_date, Date end_date, String address, String organizer_id)	{
 
-		System.out.println("name = [" + name + "], description = [" + description + "], begin_date = [" + begin_date + "], end_date = [" + end_date + "], address = [" + address + "], organizer_id = [" + organizer_id + "]");
 		OrganizerEntity organizer = orgaDao.findById(organizer_id);
-		
-		EventEntity event = new EventEntity(name,description,begin_date,end_date,address,organizer,new ArrayList<ParticipantEntity>());
-
+		EventEntity event = new EventEntity(name,description,begin_date,end_date,address,organizer,new ArrayList<>());
 		eventDao.create(event);
 	}
 	

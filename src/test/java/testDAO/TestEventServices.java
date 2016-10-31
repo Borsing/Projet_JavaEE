@@ -56,7 +56,7 @@ public class TestEventServices {
 	
 	@Test
 	public void findByName() {
-		assertEquals(event1,es.findEventByName("Event de Adrien"));	//is True for real
+		assertTrue(event1.equals(es.findEventByName("Event de Adrien")));	//is True for real
 	}
 	
 	@Test

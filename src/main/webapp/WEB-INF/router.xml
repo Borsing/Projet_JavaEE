@@ -123,7 +123,7 @@
             <parameter value="1_id" />
         </parameters>
         <url value="/remove-event"/>
-        <jsp value="my-events"/>
+        <jsp value="my-created-events"/>
     </route>
 
     <route id="detail-event-get">

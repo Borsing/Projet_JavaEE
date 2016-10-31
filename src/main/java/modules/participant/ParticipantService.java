@@ -39,7 +39,7 @@ public class ParticipantService {
 		return par ;
 	}
 	
-	public boolean joinEvent(int event_id, String participant_mail, String last_name, String first_name, String company) throws BeanException {
+	public void joinEvent(int event_id, String participant_mail, String last_name, String first_name, String company) throws BeanException {
 		ParticipantEntity par = parDao.findById(participant_mail);
 		EventEntity event = eventDao.findById(event_id);
 
@@ -57,15 +57,15 @@ public class ParticipantService {
 		
     	event.getParticipants().add(par);
 
-		return eventDao.update(event);
+		eventDao.update(event);
 	}
 	
-	public boolean quitEvent(int eventId, String participantId)	{
+	public void quitEvent(int eventId, String participantId)	{
 		ParticipantEntity participant = parDao.findById(participantId);
 		EventEntity event = eventDao.findById(eventId);
 		
 		event.getParticipants().remove(participant);
 		
-		return eventDao.update(event);
+		eventDao.update(event);
 	}
 }

@@ -1,16 +1,17 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <!-- jspf showing how to create an event | Can only appear while connected. -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <form action="create-event" method="post">
 
     <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--3-col"></div>
-        <div class="mdl-cell mdl-cell--6-col">
-            <h3>Creer un event</h3><br>
+        <div class="mdl-cell mdl-cell--6-col  mdl-cell--3-offset">
+            <h3>Créer un évènement</h3><br>
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" id="name" name="1_name" required/>
-                <label class="mdl-textfield__label" for="name">Nom de l'event</label>
+                <label class="mdl-textfield__label" for="name">Nom de l'évènement</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" id="address" name="5_address" required/>
@@ -34,10 +35,9 @@
             <input type="hidden" name="6_organizer_id" value="${session.mail}"/>
 
             <input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit"
-                   value="Creer l'event" />
+                   value="Créer l'évènement" />
 
         </div>
-        <div class="mdl-cell mdl-cell--3-col"></div>
     </div>
 
 </form>

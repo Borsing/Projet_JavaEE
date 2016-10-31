@@ -1,7 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
+<c:if test="${exception != null}">
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col  mdl-cell--3-offset">
+        <h5 style="color: darkred">${exception}</h5>
+    </div>
+</div>
+</c:if>
+
 <c:choose>
     <c:when test="${page=='events'}">
         <c:import url="${pageContext.servletContext.contextPath}/app/events.jsp"/>
@@ -40,4 +49,5 @@
         <jsp:include page="${pageContext.servletContext.contextPath}/app/my-created-events.jsp"/>
     </c:when>
 </c:choose>
+
 </html>

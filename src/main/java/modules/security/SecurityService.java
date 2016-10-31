@@ -31,6 +31,7 @@ public class SecurityService {
 
         // TODO Check the user is good and throw new Exception if not
         if(!organizerService.checkLogin(mail,password)){
+
             throw new BeanException(EnumException.WRONG_LOGIN);
         }
         else{

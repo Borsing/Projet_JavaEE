@@ -32,8 +32,11 @@ public class ArgumentsParser {
 		}
 		
 		if(classType.equals(Date.class)){
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy/HH:mm");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = sdf.parse((String) value);
+			System.out.println("value.toString() = " + value.toString());
+
+			System.out.println("date.toString() = " + date.toString());
 			return date ;
 		}
 

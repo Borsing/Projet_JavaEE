@@ -6,6 +6,9 @@ import exception.EnumException;
 import modules.Field;
 import modules.event.EventDAO;
 import modules.event.EventEntity;
+import modules.security.SecurityService;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class OrganizerService {
 	

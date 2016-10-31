@@ -55,10 +55,10 @@ public class RequestRouter {
         Route route = null;
         Object data = null;
         BeanException beanException = null;
+        System.out.println("req.getParameterMap().toString() = " + req.getParameterMap().toString());
 
         try {
             route = getRouteOfURL(req.getPathInfo(),req.getParameterMap(),req.getMethod());
-
             if(!route.isRequiredConnection() || (route.isRequiredConnection() && SecurityService.isConnected(req))) {
                 data = process(route, req, resp, context);
             }
@@ -127,42 +127,44 @@ public class RequestRouter {
     private List<Object> getMethodParameters(HttpServletRequest request, Class<?>[] parameterTypes, boolean includeRequest) {
         List<Object> values = new ArrayList<>();
 
-        System.out.println("values.toString() = " + Arrays.toString(parameterTypes));
-        
-        List<Object> mapValues = new ArrayList<>();
-        TreeMap<Integer,String> sortingValues = new TreeMap<>(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o1.compareTo(o2);
+        TreeMap<Integer,Object> sortingValues = new TreeMap<>((o1, o2) -> {
+            if (Objects.equals(o1, o2)) {
+                return 0;
             }
+            return (o1 > o2) ? 1 : -1;
         });
-
-        System.out.println("request.getParameterMap() not sorting = " + request.getParameterMap().toString());
-        System.out.println("request.getParameterMap()  sorting = " + sortingValues.toString());
 
         for (Map.Entry<String, String[]> entry : request.getParameterMap().entrySet())
         {
-            String[] parts = entry.getKey().split("_");
-            Integer index = Integer.getInteger(parts[0]);
-
+            String[] parts = entry.getKey().toString().split("_");
+            Integer index = Integer.parseInt(parts[0]);
             sortingValues.put(index, entry.getValue()[0]);
+            System.out.println("index = " + index);
+            System.out.println("entry.getValue()[0] = " + entry.getValue()[0]);
         }
+
+        LinkedList<Object> sortingValuesToArray = new LinkedList<>(sortingValues.values());
+        System.out.println("sortingValuesToArray without reverse= " + sortingValuesToArray);
+
+        //Collections.reverse(sortingValuesToArray);
 
         if(includeRequest){
-            mapValues.add(request);
+            sortingValuesToArray.addFirst(request);
         }
+
+        System.out.println("sortingValuesToArray = " + sortingValuesToArray);
 
         for(int i=0; i < parameterTypes.length ;i++){
             try {
-                values.add(ArgumentsParser.convertTo(parameterTypes[i],mapValues.get(i)));
+                values.add(ArgumentsParser.convertTo(parameterTypes[i],sortingValuesToArray.get(i)));
             } catch (ClassNotFoundException | ParseException e) {
                 e.printStackTrace();
             }
         }
 
-        Collections.reverse(values);
+        //Collections.reverse(values);
 
-        System.out.println("mapValues after = " + values.toString());
+        System.out.println("values = " + values);
 
         return  values;
 
@@ -176,7 +178,7 @@ public class RequestRouter {
         context.setAttribute(DATA, data);
         context.setAttribute(PAGE,jsp);
         if(beanException != null)
-        context.setAttribute(EXCEPTION, beanException.getEnumException());
+        context.setAttribute(EXCEPTION, beanException.getEnumException().toString());
         else
             context.setAttribute(EXCEPTION, null);
         System.out.println("jsp = " + context.getAttribute(PAGE));
