@@ -1,5 +1,7 @@
 package modules.participant;
 
+import exception.BeanException;
+import exception.EnumException;
 import modules.Field;
 import modules.event.EventDAO;
 import modules.event.EventEntity;
@@ -37,16 +39,16 @@ public class ParticipantService {
 		return par ;
 	}
 	
-	public boolean joinEvent(int event_id, String participant_mail, String last_name, String first_name, String company){
+	public boolean joinEvent(int event_id, String participant_mail, String last_name, String first_name, String company) throws BeanException {
 		ParticipantEntity par = parDao.findById(participant_mail);
 		EventEntity event = eventDao.findById(event_id);
 
 		if(par == null)
 			par = createParticipant(participant_mail, last_name, first_name,company);
 		
-		if(isParticipating(participant_mail, event_id))
-			return false; 
-				
+		if(isParticipating(participant_mail, event_id)) {
+			throw new BeanException(EnumException.PARTICIPANT_ALREADY_EXISTS);
+		}
 		par.setLast_name(last_name);
 		par.setFirst_name(first_name);
 		par.setCompany(company);

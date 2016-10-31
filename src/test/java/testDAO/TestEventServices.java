@@ -3,11 +3,15 @@ package testDAO;
 import static org.junit.Assert.*;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.PersistenceException;
+import javax.persistence.Table;
 
+import exception.BeanException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,12 +56,62 @@ public class TestEventServices {
 	
 	@Test
 	public void findByName() {
-		assertTrue(event1.equals(es.findEventByName("Event de Adrien")));	//is True for real
+		assertEquals(event1,es.findEventByName("Event de Adrien"));	//is True for real
 	}
 	
 	@Test
+	public void findEventsByOrganizer() {
+		List<EventEntity> expected = new ArrayList<>();
+		expected.add(event1);
+
+		try {
+			ps.joinEvent((int) event1.getId(), "toto", "vxc", "vdx", "vxc");
+		} catch (BeanException e) {
+			fail();
+		}
+
+		assertEquals(expected, es.findEventsByParticipant("toto"));
+
+	}
+
+	@Test
+	public void testUpdateEvent(){
+		EventEntity expected = es.findEventById((int) event1.getId());
+		expected.setName("Nouveau nom");
+		expected.setAddress("nouvelle adresse");
+		try {
+			try {
+				es.updateEvent((int)event1.getId(), "Nouveau nom", "C'est l'événement d'Adrien", (Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/11:00"),(Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/18:00"), "nouvelle adresse", (String) organizer1.getId());
+			} catch (BeanException e) {
+				fail();
+			}
+		} catch (ClassNotFoundException | ParseException e) {
+			fail();
+		}
+
+		assertEquals(expected,es.findEventById((int) event1.getId()));
+
+	}
+
+	@Test
+	public void testIsOrganizerOfEvent(){
+		assertEquals(true, es.isOrganizerOfEvent((String)organizer1.getId(),(int)event1.getId()));
+	}
+
+	@Test
+	public void findEventsByParticipant() {
+		List<EventEntity> expected = new ArrayList<>();
+		expected.add(event1);
+		assertEquals(expected, es.findEventsByOrganizer((String) organizer1.getId()));
+	}
+
+	@Test
 	public void dropByOrganizer() {
-		os.register("azerty", "azdf", "afzsc", "fsd", "fsd");
+		try {
+			os.register("azerty", "azdf", "afzsc", "fsd", "fsd");
+		} catch (BeanException e) {
+			fail();
+		}
 		try {
 			es.createEvent("yghjk", "xvcb", (Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/11:00"),(Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/18:00"), "qdvfdx", "azerty");
 		} catch (Exception e) {
@@ -65,15 +119,25 @@ public class TestEventServices {
 		}
 		assertEquals(os.findOrganizerById("azerty"),es.findEventsByOrganizer("azerty").get(0).getOrganizer_id());
 
-		ps.joinEvent((int)es.findEventByName("yghjk").get(0).getId(), "toto", "vxc", "vdx", "vxc");
-		
-		os.unregister("azerty");
-		
-		
+		try {
+			ps.joinEvent((int)es.findEventByName("yghjk").get(0).getId(), "toto", "vxc", "vdx", "vxc");
+		} catch (BeanException e) {
+			fail();
+		}
+
+		try {
+			os.unregister("azerty");
+		} catch (BeanException e) {
+			fail();
+		}
+
+
 		assertFalse(os.exists("azerty"));
 		assertTrue(es.findEventByName("yghjk").size()==0);
 		assertNull(ps.findById("toto"));
 	}
+
+
 	
 	@Test
 	public void removeEvent() {
@@ -86,7 +150,11 @@ public class TestEventServices {
 	
 	@Test
 	public void dropByEvent() {
-		os.register("azerty", "azdf", "afzsc", "fsd", "fsd");
+		try {
+			os.register("azerty", "azdf", "afzsc", "fsd", "fsd");
+		} catch (BeanException e) {
+			fail();
+		}
 		try {
 			es.createEvent("yghjk", "xvcb", (Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/11:00"),(Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/18:00"), "qdvfdx", "azerty");
 		} catch (Exception e) {
@@ -94,9 +162,13 @@ public class TestEventServices {
 		}
 		assertEquals(os.findOrganizerById("azerty"),es.findEventsByOrganizer("azerty").get(0).getOrganizer_id());
 		int id = (int)es.findEventByName("yghjk").get(0).getId();
-		
-		ps.joinEvent(id, "toto", "vxc", "vdx", "vxc");
-		
+
+		try {
+			ps.joinEvent(id, "toto", "vxc", "vdx", "vxc");
+		} catch (BeanException e) {
+			fail();
+		}
+
 		es.removeEvent(id);
 
 		
@@ -106,7 +178,11 @@ public class TestEventServices {
 
 	@Test
 	public void testEventExistsAfterJoinAndQuit() {
-		ps.joinEvent(1, "participant1@gmail.com","nomP1","prenomP1","Company1") ;
+		try {
+			ps.joinEvent(1, "participant1@gmail.com","nomP1","prenomP1","Company1") ;
+		} catch (BeanException e) {
+			fail();
+		}
 		assertTrue(ps.isParticipating( "participant1@gmail.com", 1));
 		ps.quitEvent(1, "participant1@gmail.com");
 		assertFalse(ps.isParticipating( "participant1@gmail.com", 1));
@@ -114,16 +190,14 @@ public class TestEventServices {
 		assertTrue(es.findEventByName("Event de Adrien").get(0).getParticipants().size() == 0);
 	}
 
-	@Test
-	public void testOrganizerExistsRemoveEvent() {
-		es.removeEvent(1);
-		assertTrue(es.findEventByName("Event de Adrien").size() == 0);
-		assertTrue(os.exists("adrien.cadoret@gmail.com"));
-	}
 
 	@Test
 	public void checkLogin() {
-		os.register("azerty", "azdf", "afzsc", "fsd", "fsd");
+		try {
+			os.register("azerty", "azdf", "afzsc", "fsd", "fsd");
+		} catch (BeanException e) {
+			fail();
+		}
 		try {
 			es.createEvent("yghjk", "xvcb", (Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/11:00"),(Date)ArgumentsParser.convertTo(Date.class, "14/05/2016/18:00"), "qdvfdx", "azerty");
 		} catch (Exception e) {

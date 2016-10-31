@@ -6,6 +6,8 @@ import java.text.ParseException;
 
 import javax.persistence.PersistenceException;
 
+import exception.BeanException;
+import exception.EnumException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,9 +42,13 @@ public class TestParticipantServices {
 	
 	
 	@Test
-	public void testJoinAndQuitEvent() {
+	public void testIsParticipatingJoinAndQuit() {
 		assertFalse(ps.isParticipating( "participant1@gmail.com", 1));
-		ps.joinEvent(1, "participant1@gmail.com","nomP1","prenomP1","Company1") ;
+		try {
+			ps.joinEvent(1, "participant1@gmail.com","nomP1","prenomP1","Company1") ;
+		} catch (BeanException e) {
+			fail();
+		}
 		assertTrue(ps.isParticipating( "participant1@gmail.com", 1));
 		ps.quitEvent(1, "participant1@gmail.com");
 		assertFalse(ps.isParticipating( "participant1@gmail.com", 1));
@@ -56,13 +62,36 @@ public class TestParticipantServices {
 
 	@Test
 	public void testJoinEventWithNewParticipant() {
-		ps.joinEvent(1, "participant4@gmail.com","nomP4","prenomP4","Company4") ;
+		try {
+			ps.joinEvent(1, "participant4@gmail.com","nomP4","prenomP4","Company4") ;
+		} catch (BeanException e) {
+			e.printStackTrace();
+		}
 		assertNotNull(ps.findById("participant4@gmail.com"));
 		assertTrue(ps.isParticipating( "participant4@gmail.com", 1));
 	}
-	
-	
-	
+
+	@Test
+	public void testJoinEventWithExistingParticipant() {
+
+		BeanException exception = null;
+
+		try {
+			ps.joinEvent(1, "participant3@gmail.com","nomP4","prenomP4","Company4") ;
+			ps.joinEvent(1, "participant3@gmail.com","new","new","new") ;
+		} catch (BeanException e) {
+			exception = e;
+			assertEquals(EnumException.PARTICIPANT_ALREADY_EXISTS, e.getEnumException());
+		}
+
+		if(exception == null){
+			fail();
+		}
+
+	}
+
+
+
 	@After
 	public void unset() {
 		databaseManager.closeEntityManagerFactory();

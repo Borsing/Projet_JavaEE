@@ -52,15 +52,15 @@ public interface DAOInterface<T extends AbstractEntity> {
     default boolean update(T entity){
     	EntityManager em = DatabaseManager.getEntityManagerFactory().createEntityManager() ;
     	em.getTransaction().begin();
-    	    	
+
     	T entityFound = em.merge(entity);
     	
     	if(entityFound == null)
-    		return false; 
-    	
+    		return false;
+
 
     	entityFound = entity ;
-    	
+
     	em.getTransaction().commit();
     	em.close();
     	return true ;

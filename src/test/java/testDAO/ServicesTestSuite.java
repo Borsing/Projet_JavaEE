@@ -8,14 +8,15 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 @RunWith(Suite.class)
-@SuiteClasses({ TestParticipantServices.class, TestEventServices.class })
+@SuiteClasses({ TestParticipantServices.class, TestEventServices.class, TestOrganizerServices.class })
 public class ServicesTestSuite {
 	
 	public static Test suite() 
 	{
 		final Class<?>[] classesTest = {
-			TestParticipantServices.class,
-				TestEventServices.class
+				TestParticipantServices.class,
+				TestEventServices.class,
+				TestOrganizerServices.class
 
 		};
 

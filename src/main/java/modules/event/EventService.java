@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import exception.BeanException;
+import exception.EnumException;
 import modules.Field;
 import modules.FieldComparable;
 import modules.organizer.OrganizerDAO;
@@ -157,7 +159,7 @@ public class EventService {
 		return eventDao.findByCriteria(Field.BooleanOperator.AND,fieldOrga,fieldEventId).size() == 1;
 	}
 	
-	public void updateEvent(int id, String name, String description, Date begin_date, Date end_date, String address, String organizer_id) // can not change id. The organizerId field is the stored value in the session
+	public void updateEvent(int id, String name, String description, Date begin_date, Date end_date, String address, String organizer_id) throws BeanException // can not change id. The organizerId field is the stored value in the session
 	{
 		EventEntity event = eventDao.findById(id);
 		
@@ -170,7 +172,9 @@ public class EventService {
 		event.setEnd_date(end_date);
 		event.setOrganizer_id(organizer);
 		
-		eventDao.update(event);
+		boolean ok = eventDao.update(event);
+		if(!ok)
+			throw new BeanException(EnumException.SOMETHING_WRONG);
 	}
 	
 	public void removeEvent(int eventId)	{

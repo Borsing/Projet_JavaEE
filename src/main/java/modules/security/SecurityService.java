@@ -34,7 +34,6 @@ public class SecurityService {
             throw new BeanException(EnumException.WRONG_LOGIN);
         }
         else{
-
             HttpSession httpSession = req.getSession(true);
             httpSession.setAttribute(ATT_SESSION_USER, organizerService.findOrganizerById(mail));
         }

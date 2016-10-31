@@ -24,6 +24,7 @@
             <parameter value="password" />
         </parameters>
         <jsp value="events"/>
+        <redirected-jsp value="login"/>
     </route>
 
     <route id="register-get">

@@ -79,7 +79,10 @@ public class RequestRouter {
             e.printStackTrace();
         } catch (BeanException e) {
             beanException = e;
+            redirect(route.getRedirectedJsp(), req.getSession(false), data, beanException);
+            System.out.println("redirected to = " + route.getRedirectedJsp());
             e.printStackTrace();
+            return;
         }
 
         assert route != null;

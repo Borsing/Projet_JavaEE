@@ -1,6 +1,8 @@
 package modules.organizer;
 
 
+import exception.BeanException;
+import exception.EnumException;
 import modules.Field;
 import modules.event.EventDAO;
 import modules.event.EventEntity;
@@ -54,14 +56,18 @@ public class OrganizerService {
 	}
 	
 	//create
-	public OrganizerEntity register(String mail, String password, String last_name, String first_name, String company){
+	public OrganizerEntity register(String mail, String password, String last_name, String first_name, String company) throws BeanException {
 		OrganizerEntity orga = new OrganizerEntity(mail, password, last_name, first_name, company, null);
+		if(exists(mail))
+			throw new BeanException(EnumException.USER_ALREADY_EXISTS);
 		orgaDao.create(orga);
 		return orga ;
 	}
 	
 	//delete
-	public void unregister(String id) {
+	public void unregister(String id) throws BeanException {
+		if(findOrganizerById(id) == null)
+			throw new BeanException(EnumException.SOMETHING_WRONG);
 		orgaDao.deleteById(id);
 	}
 	
