@@ -4,7 +4,7 @@
 <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--3-col"></div>
     <div class="mdl-cell mdl-cell--6-col">
-        <h3>Les events</h3>
+        <h3>Mes creations</h3>
     </div>
     <div class="mdl-cell mdl-cell--3-col"></div>
 </div>
@@ -59,11 +59,8 @@
                         </button>
                         <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
                             for="demo-menu-lower-left-${item.id}">
-                            <li class="mdl-menu__item" onclick="location.href = 'join-event?id=${item.id}' ; ">
-                                Participer a l'event
-                            </li>
-                            <li class="mdl-menu__item" onclick="location.href = 'detail-event?id=${item.id}' ; ">
-                                Plus de details
+                            <li class="mdl-menu__item" onclick="location.href = 'edit-event?id=${item.id}' ; ">
+                                Modifier l'event
                             </li>
                         </ul>
                     </td>
