@@ -3,16 +3,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--3-col"></div>
-    <div class="mdl-cell mdl-cell--6-col">
-        <h3>Les events</h3>
+    <div class="mdl-cell mdl-cell--6-col  mdl-cell--3-offset">
+        <h3>Les évènements</h3>
     </div>
-    <div class="mdl-cell mdl-cell--3-col"></div>
 </div>
 
 <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--3-col"></div>
-    <div class="mdl-cell mdl-cell--4-col">
+    <div class="mdl-cell mdl-cell--6-col  mdl-cell--3-offset">
         <form action="#">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                 <label class="mdl-button mdl-js-button mdl-button--icon" for="sample-expandable">
@@ -25,18 +22,16 @@
             </div>
         </form>
     </div>
-    <div class="mdl-cell mdl-cell--3-col"></div>
 </div>
 
 <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--3-col"></div>
-    <div class="mdl-cell mdl-cell--6-col">
+    <div class="mdl-cell mdl-cell--6-col  mdl-cell--3-offset">
         <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
             <thead>
             <tr>
                 <th></th>
-                <th>Nom de l'event</th>
-                <th>Debut</th>
+                <th>Nom de l'évènement</th>
+                <th>Début</th>
                 <th>Fin</th>
                 <th>Lieu</th>
                 <th></th>
@@ -61,10 +56,10 @@
                         <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
                             for="demo-menu-lower-left-${item.id}">
                             <li class="mdl-menu__item" onclick="location.href = 'join-event?id=${item.id}' ; ">
-                                Participer a l'event
+                                Participer à l'évènement
                             </li>
                             <li class="mdl-menu__item" onclick="location.href = 'detail-event?id=${item.id}' ; ">
-                                Plus de details
+                                Plus de détails
                             </li>
                         </ul>
                     </td>
@@ -74,6 +69,5 @@
             </tbody>
         </table>
     </div>
-    <div class="mdl-cell mdl-cell--3-col"></div>
 </div>
 </html>

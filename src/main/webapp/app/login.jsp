@@ -4,8 +4,7 @@
 <form action="login" method="POST">
 
     <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--3-col"></div>
-        <div class="mdl-cell mdl-cell--6-col">
+        <div class="mdl-cell mdl-cell--6-col  mdl-cell--3-offset">
             <h3>Se connecter</h3><br>
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -22,7 +21,6 @@
             <input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit"
                    value="Se connecter" />
         </div>
-        <div class="mdl-cell mdl-cell--3-col"></div>
     </div>
 
 </form>

@@ -5,37 +5,18 @@
 <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--3-col"></div>
     <div class="mdl-cell mdl-cell--6-col">
-        <h3>Mes creations</h3>
+        <h3>Mes créations</h3>
     </div>
     <div class="mdl-cell mdl-cell--3-col"></div>
 </div>
 
 <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--3-col"></div>
-    <div class="mdl-cell mdl-cell--4-col">
-        <form action="#">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-                <label class="mdl-button mdl-js-button mdl-button--icon" for="sample-expandable">
-                    <i class="material-icons">search</i>
-                </label>
-                <div class="mdl-textfield__expandable-holder">
-                    <input class="mdl-textfield__input" type="text" id="sample-expandable">
-                    <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="mdl-cell mdl-cell--3-col"></div>
-</div>
-
-<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--3-col"></div>
-    <div class="mdl-cell mdl-cell--6-col">
+    <div class="mdl-cell mdl-cell--6-col  mdl-cell--3-offset">
         <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
             <thead>
             <tr>
                 <th></th>
-                <th>Nom de l'event</th>
+                <th>Nom de l'évènement</th>
                 <th>Debut</th>
                 <th>Fin</th>
                 <th>Lieu</th>
@@ -61,7 +42,7 @@
                         <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
                             for="demo-menu-lower-left-${item.id}">
                             <li class="mdl-menu__item" onclick="location.href = 'edit-event?id=${item.id}' ; ">
-                                Modifier l'event
+                                Modifier l'évènement
                             </li>
                         </ul>
                     </td>
@@ -71,6 +52,5 @@
             </tbody>
         </table>
     </div>
-    <div class="mdl-cell mdl-cell--3-col"></div>
 </div>
 </html>

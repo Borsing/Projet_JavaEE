@@ -40,4 +40,25 @@
         <jsp:include page="${pageContext.servletContext.contextPath}/app/my-created-events.jsp"/>
     </c:when>
 </c:choose>
+
+<c:if test="${exception != null}">
+    <button id="demo-show-toast" class="mdl-button mdl-js-button mdl-button--raised" type="button" hidden>Show Toast</button>
+    <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+    </div>
+    <script>
+        (function() {
+            'use strict';
+            var snackbarContainer = document.querySelector('#demo-toast-example');
+            var showToastButton = document.querySelector('#demo-show-toast');
+            showToastButton.addEventListener('click', function() {
+                'use strict';
+                var data = {message: ${exception.name}};
+                snackbarContainer.MaterialSnackbar.showSnackbar(data);
+            });
+            showToastButton.click();
+        }());
+    </script>
+</c:if>
+
 </html>

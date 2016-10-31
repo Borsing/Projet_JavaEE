@@ -4,9 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--3-col"></div>
-    <div class="mdl-cell mdl-cell--6-col">
-        <h3>Mes events</h3><br>
+    <div class="mdl-cell mdl-cell--6-col  mdl-cell--3-offset">
+        <h3>Mes évènements</h3><br>
 
         <form action="my-events" method="post">
             <div class="mdl-textfield mdl-js-textfield">
@@ -27,15 +26,15 @@
 
         <c:choose>
             <c:when test="${data==null}">
-                <h3>Aucun event à afficher.</h3>
+                <h3>Aucun évènement à afficher.</h3>
             </c:when>
             <c:otherwise>
                     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                         <thead>
                         <tr>
                             <th></th>
-                            <th>Nom de l'event</th>
-                            <th>Debut</th>
+                            <th>Nom de l'évènement</th>
+                            <th>Début</th>
                             <th>Fin</th>
                             <th>Lieu</th>
                             <th></th>
@@ -60,10 +59,10 @@
                                     <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
                                         for="demo-menu-lower-left-${item.id}">
                                         <li class="mdl-menu__item" onclick="location.href = 'join-event?id=${item.id}' ; ">
-                                            Participer a l'event
+                                            Participer à l'évènement
                                         </li>
                                         <li class="mdl-menu__item" onclick="location.href = 'detail-event?id=${item.id}' ; ">
-                                            Plus de details
+                                            Plus de détails
                                         </li>
                                     </ul>
                                 </td>
@@ -76,6 +75,5 @@
         </c:choose>
 
     </div>
-    <div class="mdl-cell mdl-cell--3-col"></div>
 </div>
 </html>
