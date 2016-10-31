@@ -10,7 +10,7 @@
 
     <body>
         <jsp:include page="body.jsp"/>
-        <%--<script defer src="${pageContext.servletContext.contextPath}/bootstrap-material-design-master/dist/js/material.min.js"></script>--%>
         <script src="${pageContext.servletContext.contextPath}/material.min.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/bootstrap-material-design-master/dist/js/material.js"></script>
     </body>
 </html>
