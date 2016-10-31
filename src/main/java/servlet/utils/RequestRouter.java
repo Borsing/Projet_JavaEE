@@ -165,8 +165,10 @@ public class RequestRouter {
             context.setAttribute(SESSION, null);
         context.setAttribute(DATA, data);
         context.setAttribute(PAGE,jsp);
-        context.setAttribute(EXCEPTION, beanException);
-
+        if(beanException != null)
+        context.setAttribute(EXCEPTION, beanException.getEnumException());
+        else
+            context.setAttribute(EXCEPTION, null);
         System.out.println("jsp = " + context.getAttribute(PAGE));
         System.out.println("session = " + context.getAttribute(SESSION));
         System.out.println("exception = " + context.getAttribute(EXCEPTION));

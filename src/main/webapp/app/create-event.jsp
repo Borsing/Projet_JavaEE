@@ -23,7 +23,7 @@
             </div><br>
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="date" id="begin_date" name="begin_date" required/>
+                <input class="mdl-textfield__input" type="datetime" id="begin_date" name="begin_date" required/>
                 <label class="mdl-textfield__label" for="begin_date">Date de debut</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
