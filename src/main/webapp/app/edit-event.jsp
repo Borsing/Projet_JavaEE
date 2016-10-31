@@ -1,5 +1,6 @@
 <!-- jspf template to display a list of events -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <form action="edit-event" method="post">
 
     <div class="mdl-grid">
@@ -52,4 +53,5 @@
         <div class="mdl-cell mdl-cell--3-col"/>
     </div>
 </form>
+</html>
 

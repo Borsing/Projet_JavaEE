@@ -1,6 +1,7 @@
 <!-- jspf template to display a list of events -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--3-col"></div>
     <div class="mdl-cell mdl-cell--6-col">
@@ -72,3 +73,4 @@
     </div>
     <div class="mdl-cell mdl-cell--3-col"></div>
 </div>
+</html>

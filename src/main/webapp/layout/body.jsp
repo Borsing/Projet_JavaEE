@@ -3,20 +3,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <c:choose>
-    <c:when test="${page=='login'}">
-        <c:import url="${pageContext.servletContext.contextPath}/app/login.jspf"/>
-    </c:when>
     <c:when test="${page=='events'}">
         <c:import url="${pageContext.servletContext.contextPath}/app/events.jsp"/>
     </c:when>
     <c:when test="${page=='404'}">
-        <c:import url="${pageContext.servletContext.contextPath}/app/404.jspf"/>
+        <c:import url="${pageContext.servletContext.contextPath}/app/404.jsp"/>
     </c:when>
     <c:when test="${page=='my-events'}">
         <c:import url="${pageContext.servletContext.contextPath}/app/my-events.jsp"/>
     </c:when>
     <c:when test="${page=='login'}">
-        <jsp:include page="${pageContext.servletContext.contextPath}/app/login.jspf"/>
+        <jsp:include page="${pageContext.servletContext.contextPath}/app/login.jsp"/>
     </c:when>
     <c:when test="${page=='register'}">
         <jsp:include page="${pageContext.servletContext.contextPath}/app/register.jsp"/>

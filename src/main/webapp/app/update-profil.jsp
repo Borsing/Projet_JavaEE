@@ -31,7 +31,7 @@
                 <label class="mdl-textfield__label" for="password">Mot de passe</label>
             </div><br>
 
-            <input type="hidden" name="mydata" id="last_email" name="last_email" value="${session.email}"/>
+            <input type="hidden" name="mydata" id="last_email" name="last_email" value="${session.mail}"/>
 
             <input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit"
                    value="Enregistrer les modifications" />

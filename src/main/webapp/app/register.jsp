@@ -1,5 +1,6 @@
 <!-- jspf showing how to register. -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <form action="register" method="POST">
 
     <div class="mdl-grid">
@@ -38,3 +39,4 @@
     </div>
 
 </form>
+</html>

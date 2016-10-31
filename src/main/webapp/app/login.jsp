@@ -1,6 +1,6 @@
 <!-- jspf showing how to login. -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<html>
 <form action="login" method="POST">
 
     <div class="mdl-grid">
@@ -26,4 +26,5 @@
     </div>
 
 </form>
+</html>
 

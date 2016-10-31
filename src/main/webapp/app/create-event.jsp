@@ -1,5 +1,6 @@
 <!-- jspf showing how to create an event | Can only appear while connected. -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <form action="create-event" method="post">
 
     <div class="mdl-grid">
@@ -40,6 +41,8 @@
     </div>
 
 </form>
+
+</html>
 
 <!--
 <dialog class="mdl-dialog" id="modal-create-event">
