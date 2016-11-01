@@ -26,10 +26,12 @@
     String end_date_time = ft_time.format(end_date_value);
 %>
 
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--5-col  mdl-cell--1-offset">
+
 <form action="edit-event" method="post">
 
-    <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--5-col  mdl-cell--1-offset">
+
             <h3>Edition de l'évènement</h3><br>
 
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -70,8 +72,6 @@
             <input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit"
                    value="Editer l'évènement" /><br>
         </div>
-
-    </div>
 </form>
 
 <div class="mdl-cell mdl-cell--4-col mdl-cell--1-offset">
@@ -124,6 +124,8 @@
     </c:choose>
 
 </div>
+
+    </div>
 
 <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--5-col mdl-cell--1-offset">
