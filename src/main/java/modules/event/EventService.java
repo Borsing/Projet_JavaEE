@@ -106,7 +106,9 @@ public class EventService {
 	//get Events By Name	
 	public List<EventEntity> findEventByName(String name){		
 		Field<String> fieldName = new Field<>();
-		
+
+		System.out.println("name = [" + name + "]");
+
 		//Date begin during the day
 		fieldName.setFieldTarget("name")
 				  .setOperator(Field.Operator.EQ)

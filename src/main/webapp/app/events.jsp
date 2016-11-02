@@ -10,20 +10,21 @@
     </div>
 </div>
 
-<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--6-col  mdl-cell--3-offset">
-        <form action="#">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-                <label class="mdl-button mdl-js-button mdl-button--icon" for="sample-expandable">
-                    <i class="material-icons">search</i>
-                </label>
-                <div class="mdl-textfield__expandable-holder">
-                    <input class="mdl-textfield__input" type="text" id="sample-expandable">
-                    <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
-                </div>
+<div class="mdl-cell mdl-cell--6-col  mdl-cell--3-offset">
+    <form action="events" method="get">
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="name">
+                <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+
+                <input class="mdl-textfield__input" type="text" id="name" name="1_name" required>
+
+                <label class="mdl-textfield__label" for="name">Rechercher via le nom</label>
             </div>
-        </form>
-    </div>
+        </div>
+    </form><br>
 </div>
 
 <div class="mdl-grid">

@@ -93,6 +93,17 @@
         <jsp value="events"/>
     </route>
 
+    <route id="events-get">
+        <method value="GET" />
+        <targeted-service value="modules.event.EventService" />
+        <targeted-method value="findEventByName"/>
+        <parameters>
+            <parameter value="1_name"/>
+        </parameters>
+        <url value="/events"/>
+        <jsp value="events"/>
+    </route>
+
     <route id="create-event-get" required-connection = "true">
         <method value="GET" />
         <url value="/create-event"/>
